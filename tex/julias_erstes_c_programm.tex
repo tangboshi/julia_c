@@ -1,0 +1,107 @@
+% !TeX document-id = {c8d06508-e420-4331-a32a-ee892ed71c0e}
+% !TeX TXS-program:compile = txs:///pdflatex/[--shell-escape]
+
+\documentclass{article}
+\usepackage{minted}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{color}
+\usepackage{soul}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{minted}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{calc}
+\usepackage{enumitem}
+\usepackage{standalone}
+
+\begin{document}
+
+\title{Yay, mein erstes C-Programm}
+\author{Alexander Pastor}
+\date{07.05.2017}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Ein paar Befehle mit der Konsole}
+
+\begin{description}[leftmargin=!, labelwidth=1.7in]
+	\item[ls] Zeigt den Verzeichnisinhalt an.
+	\item[cd Ordner] Öffnet einen Ordner des Namens Ordner.
+	\item[mkdir MeinOrdner] Erstellt ein Verzeichnis mit dem Namen MeinOrdner
+	\item[rm Datei] Löscht eine Datei.
+	\item[rm -r Ordner] Löscht einen Ordner (-r heißt rekursiv).
+	\item[sudo Befehl] Vor einem Befehl vorangestellt, wird der Befehl mit Adminrechten durchgeführt.
+	\item[man Befehl] Schlägt im Handbuch den Befehl nach.
+	\item[touch Datei] "Berührt" eine Datei. Falls die Datei nicht existiert, wird sie erstellt.
+	\item[mv Quelle Ziel]  Verschiebt eine Datei von Quelle nach Ziel wenn Pfad als Ziel angegeben ist, ansonsten wird die Datei in Ziel umbenannt.
+	\item[. .. $\sim$ /] . steht für das aktuelle Verzeichnis, .. für das Vaterverzeichnis, ~ für das Homeverzeichnis des Benutzers und / für das Wurzelverzeichnis. Für den Administrator sind $\sim$ und / gleichbedeutend.
+	\item[su] Sich als Administrator einloggen (nicht benutzen! - ein vorangestelltes sudo vor einzelnen Befehlen funktioniert ganz gut und ist kein permanentes Sicherheitsrisiko.)
+	\item[Tab] Mit Tab kann ich die Befehle automatisch vervollständigen lassen. Einfach mal bei jeder Gelegenheit Tab drücken und gucken was passiert ;-)
+\end{description}
+
+\section{Mein erstes C-Programm}
+\subsection{Vorbereitungen}
+
+Wir öffnen das Terminal und dann tippen wir:
+
+\begin{minted}[tabsize=4]{bash}
+# Erst in das Verzeichnis deiner Wahl begeben
+# zB ins Homeverzeichnis
+cd ~
+# Dann halten wir ein wenig Ordnung und erstellen ein Verzeichnis.
+mkdir 2017_Arduino
+cd 2017_Arduino
+mkdir Hello_World
+cd Hello_World
+# Man beachte die Veränderung zwischen dem ersten und zweiten ls
+ls
+touch hello.c
+ls
+nano hello.c
+\end{minted}
+
+Yay, wir haben unsere erste eigene Datei erstellt. Mit der Konsole! Und dann bearbeiten wir sie auch noch mit der Konsole... \#HackerLifestyle
+
+\bigskip
+
+Jetzt tippen wir einfach folgendes ein (jap GENAU so):
+
+\begin{minted}[tabsize=4]{cpp}
+#include <stdio.h>
+
+int main()
+{
+	printf("Hello World!\n\n");
+	return 0;
+}
+\end{minted}
+
+Wir speichern das ganze mit einem schnellen Cmd+O ab und verlassen das Programm mit Cmd+X.
+
+\bigskip
+
+Jetzt noch schnell dem Compiler Bescheid geben und voilà, c'est ça:
+
+\begin{minted}{bash}
+# -o steht für output und dahinter schreiben wir den Namen unseres tollen Programms
+# Keine Sorge, das muss man nicht immer so machen, aber fürs erste ist es ganz hilfreich,
+# wenn du den ganz ganz ganz oldschoolen Weg kennenlernst ;) 
+# Der funktioniert immer, wahrscheinlich sogar auf einem grafikfähigen Taschenrechner ;-)
+gcc hello.c -o hello
+
+# Aus Sicherheitsgründen sind Programme nicht sofort ausführbar.
+# Ändern wir das mal für unseres.
+chmod +x ./hello
+
+#Jetzt führen wir das Programm aus!!
+./hello
+\end{minted}
+
+Der Rest von meiner C-Einführung sollte ganz analog funktionieren und ist "Hausaufgabe". Du kriegst das sicher hin. Bei Fragen einfach kurz schreiben.
+
+\end{document}

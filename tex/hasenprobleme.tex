@@ -1,0 +1,179 @@
+% !TeX document-id = {6c88ef16-d364-4378-ba2d-d13852e419e6}
+% !TeX TXS-program:compile = txs:///pdflatex/[--shell-escape]
+
+\documentclass{article}
+\usepackage{minted}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{color}
+\usepackage{soul}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{minted}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{calc}
+\usepackage{enumitem}
+\usepackage{standalone}
+\usepackage{ragged2e}
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\title{Ha(a)senprobleme}
+\author{Alexander Pastor}
+\date{13.05.2017}
+\maketitle
+\tableofcontents
+
+\bigskip
+
+\textbf{Wichtige Hinweise:}
+
+\bigskip
+
+Keine dieser Aufgaben muss gelöst werden. Das ist alles nur falls du Lust hast deine Kentnisse zu festigen und zu vertiefen.
+
+\bigskip
+
+Auf der letzen Seite ist das Listing fibonacci.h zu sehen, welches einen ersten Ansatz für Aufgabe 1a darstellt. Erst gucken, wenn du nicht weiterkommst ;-). Immer dran denken: Aufgaben in kleine Schritte aufteilen! Divide and conquer! (Die Angeber sagen divide et impera - pff Latein...).
+
+\bigskip
+
+Solltest du nicht weiterkommen - das ist fast ein bisschen eingeplant (nein, das ist fest eingeplant ;-) ). Es geht auch darum, dass du herausfindest, wie man Programmierfragen ein Stück weit mit den zur Verfügung stehenden Hilfsmitteln (Google, Stackoverflow, man, u.v.m.) lösen kann. Dinge, die man vielleicht mal googlen muss: stdio.h, printf, scanf, const, static...
+
+\bigskip
+
+Welche Funktion hatte nochmal \underline{\textbf{jedes}} C-Programm? 
+
+\newpage
+
+\section{Hasencensus - 25 Punkte}
+
+Die vermehren sich ja wie die Karnickel! Oh je, eine Volkszählung ist wohl zu aufwändig. Aber vielleicht können wir ja schätzen wie viele Karnickel es gibt?
+
+\bigskip
+Zur Erinnerung: wir nehmen \textbf{zunächst} an, dass es im Monat 0 1 nicht geschlechtsreifes Hasenpaar gibt. Hasenpaare werden nach einem Monat geschlechtsreif und bekommen dann jeweils jeden Monat ein Hasenpaar Nachwuchs. 
+
+\bigskip
+
+a) Lege mit der Konsole fibonacci.c und fibonacci.h an. Implementiere einen iterativen Algorithmus zur Berechnung von Fibonaccizahlen. Nach wie vielen Monaten gibt es eine Hasenplage, wenn im ersten Monat (= Zeitpunkt 0)  8 Hasenpaare (geschlechtsreife bzw. geschlechtsunreife) leben (Wissenschaftler sprechen von einer Hasenplage, wenn es mehr als 1000 Hasen gibt)?
+
+\begin{flushright}
+	\textbf{6 Punkte}
+\end{flushright}
+
+\bigskip
+
+b) Angenommen, Hasen erreichen erst nach 2 Monaten die Geschlechtsreife. Wie verändert sich der Algorithmus? Die Frage bezieht sich hier und in den folgenden Aufgabenteilen sowohl auf die rekursive als auch die iterative Variante, wobei wir nur die iterative implementieren sollen.
+
+\begin{flushright}
+	\textbf{3 Punkte}
+\end{flushright}
+
+\bigskip
+
+c) Angenommen, Hasen vermehren sich "nur" noch alle 2 Monate und erreichen nach 3 Monaten die Geschlechtsreife. Wie verändert sich der Algorithmus?
+
+\begin{flushright}
+	\textbf{3 Punkte}
+\end{flushright}
+
+\bigskip
+
+d) Man nehme die Bedingungen aus c) an und zusätzlich, dass Hasen nach 9 Monaten sterben. Wie verändert sich der Algorithmus? \textbf{Hinweis: } Verwende Arrays (z.B. \mintinline{cpp}{int vektor[2] = {0,0};}) und zwei ineinandergeschachtelte for-Schleifen bei der Implementierung des Algorithmus.
+
+\begin{flushright}
+	\textbf{6 Punkte}
+\end{flushright}
+
+\bigskip
+
+e) Der Hennefer Jägerverein darf Hasen erst schießen, wenn Hennef von einer Hasenplage bedroht ist (mehr als 700 Hasenpaare leben). Man nehme an, dass Hasen die in Hennef geboren sind das schöne Hennef nie verlassen. Im Monat 0 gebe es 12 Hasenpaare (davon 6 geschlechtsreif). Nach wie vielen Monaten wird der erste Hase geschossen?
+
+\begin{flushright}
+	\textbf{4 Punkte}
+\end{flushright}
+
+\bigskip
+
+f) Die Jäger jagen nun "sterbliche" Hasen, man löse den Aufgabenteil e) unter den Bedingungen aus Aufgabenteil d). 
+
+\begin{flushright}
+	\textbf{3 Punkte}
+\end{flushright}
+
+\bigskip
+
+\section{Herr Haase - 25 Punkte}
+
+Herr Haase ist ein ganz schönes Schlitzohr! Lass dich nicht von ihm aufs Glatteis führen! Er hat alle Handbücher gelesen und einen Breitband-Internetanschluss.
+
+\bigskip
+
+a) Herr Haase behauptet, dass man jede while-Schleife als for-Schleife schreiben kann und andersrum. Hat er recht (wenn ja, wie macht man das - wenn nein, warum nicht)? Außerdem behauptet er, dass es nur einen fundamentalen Unterschied zwischen do-while Schleifen und while-Schleifen gibt.
+
+\begin{flushright}
+	\textbf{6 Punkte}
+\end{flushright}
+
+\bigskip
+
+b) Herr Haase möchte die Energie eines Photons aus der Wellenlänge ausrechnen (warum auch immer). Dazu fällt ihm ein, dass man dazu das Planck'sche Wirkungsquantum h braucht. Dazu speichert er den Wert dieser Konstanten folgendermaßen: \mintinline{cpp}{const double h = 6.626E-34}. Hm, was wohl const bedeutet oder E-34? Ist das womöglich gar nicht die einzige oder schlauste Methode (**\#define** **hust** **hust**)? Hinweis: Es muss hier nichts ausgerechnet werden. 
+
+\begin{flushright}
+	\textbf{4 Punkte}
+\end{flushright} 
+
+\bigskip
+
+c) Herr Haase hat beobachtet, dass man mit einem Süßigkeitenautomaten und gesalzenen Preisen gut verdienen kann. Als professionelles Schlitzohr macht er sich sofort daran sich einen Automaten programmieren zu lassen. Und zwar von dir! Er verkauft die Schokoriegel Jupiter, Trunx und Snackers und verlangt je 3€ für einen Schokoriegel. Speichern Sie seinen Umsatz in einer Variable und geben Sie nach jedem Kauf Herrn Haases Umsatz aus. Vernachlässige dabei, dass ein Automat Zustände hat und nimm an, dass es in der wunderbaren Welt des Herrn Haase nur 3€ Münzen gibt (wirklich?).
+
+\bigskip
+
+\textbf{Hinweis: }Verwende scanf, switch-case, \#define und eine while-Schleife um Herrn Haases Automaten zu implementieren.
+
+\begin{flushright}
+	\textbf{10 Punkte}
+\end{flushright}
+
+\bigskip
+
+d) Herrn Haase ist leider entfallen, was der Unterschied zwischen lokalen und globalen Variablen ist. Er hat aber gehört, dass man lokale Variablen mit dem Schlüsselwort \mintinline{cpp}{static} in globale Variablen verwandeln kann (wozu könnte das gut sein?). Kannst du Herrn Haase aus der Patsche helfen? 
+
+\begin{flushright}
+	\textbf{5 Punkte}
+\end{flushright}
+
+\newpage
+
+\section{fibonacci.h}
+
+\begin{minted}[tabsize=4]{cpp}
+int calculate_recursively(int n)
+{
+	if( n == 0 || n == 1)
+		return 1;
+	else
+		return calculate_recursively(n-1) + calculate_recursively (n-2);
+}
+
+int calculate_iteratively(int n)
+{
+	int tmp, currentFib = 1, nextFib = 1;
+	for(int i=0; i < n; i++)
+	{
+		tmp = nextFib;
+		nextFib += currentFib;
+		currentFib = tmp;
+	}
+
+	return currentFib;
+}
+
+\end{minted}
+
+\end{document}
