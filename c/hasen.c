@@ -81,7 +81,7 @@ int calc(Hase* bunny, int monate)
 int main(int argc, char** argv)
 {
   // Äquivalent zum unteren ist:
-  // Hase langohr = {6,6,4,36,1,2};
+  // Hase langohr = {1,1,0,0,1,1};
   // Das ist schlecht lesbar, dafür aber kompakter
   // Bei der unteren Varianten kann man auch Array-Werte nicht antasten.
   Hase spitzohr;
