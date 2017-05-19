@@ -1,0 +1,32 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/coin.png</file>
+        <file>snd/insert-coin.wav</file>
+        <file>html/index.html</file>
+        <file>snd/drop-bottle.mp3</file>
+        <file>snd/open-bottle.mp3</file>
+        <file>snd/coin-refund.mp3</file>
+        <file>snd/coin-refund3.mp3</file>
+        <file>snd/coin-refund2.mp3</file>
+        <file>html/functions.js</file>
+        <file>html/default-style.css</file>
+        <file>fonts/digital-7 (italic).ttf</file>
+        <file>fonts/digital-7 (mono italic).ttf</file>
+        <file>fonts/digital-7 (mono).ttf</file>
+        <file>fonts/digital-7.ttf</file>
+        <file>fonts/DJB Get Digital.ttf</file>
+        <file>fonts/DS-DIGI.TTF</file>
+        <file>fonts/DS-DIGIB.TTF</file>
+        <file>fonts/DS-DIGII.TTF</file>
+        <file>fonts/DS-DIGIT.TTF</file>
+        <file>fonts/Open 24 Display St.ttf</file>
+        <file>img/bottle_1.png</file>
+        <file>img/bottle_2.png</file>
+        <file>img/bottle_3.jpg</file>
+        <file>img/bottle_3.png</file>
+        <file>snd/button-pressed.mp3</file>
+        <file>snd/button-pressed2.mp3</file>
+        <file>data/products.dat</file>
+        <file>data/revenue.dat</file>
+    </qresource>
+</RCC>

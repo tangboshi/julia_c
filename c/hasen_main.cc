@@ -7,12 +7,12 @@ using namespace std;
 int main(int argc, char** argv)
 {
   Hase spitzohr;
-  spitzohr.setFortpflanzung(1);
-  spitzohr.setReife(1);
+  spitzohr.setFortpflanzung(6);
+  spitzohr.setReife(6);
   spitzohr.setMonateBisReife(0);
-  spitzohr.setTod(0);
+  spitzohr.setTod(36);
   spitzohr.setPopulation(1);
-  spitzohr.setWurfgroesse(1);
+  spitzohr.setWurfgroesse(2);
 
   int anzahlHasen;
 

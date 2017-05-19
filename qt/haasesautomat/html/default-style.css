@@ -1,0 +1,47 @@
+*
+{
+  box-sizing: border-box;
+}
+
+body
+{
+    background: lime;
+    margin: 	0;
+    padding: 	0;
+}
+
+table#product-display
+{
+  width:  100%;
+  heigt:  100%;
+  background: yellow;
+  border-collapse: collapse;
+  font-size: 20px;
+}
+
+table#product-display tr
+{
+  height: 33.33vh;
+  width:  50vh;
+}
+
+table#product-display td
+{
+  background:   #ccc;
+  text-align: center;
+}
+
+table#product-display td:not(:last-child)
+{
+  border-right: 2px solid #fff;
+}
+
+table#product-display tr:not(:last-child) td
+{
+    border-bottom: 2px solid #fff;
+}
+
+table#product-display td.active
+{
+  background: pink;
+}
