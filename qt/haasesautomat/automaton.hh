@@ -1,16 +1,12 @@
 #ifndef AUTOMATON_HH
 #define AUTOMATON_HH
 
-#include<QObject>
-#include<QMap>
+#include <QObject>
 #include <QString>
-typedef QMap<unsigned int, unsigned int> map;
-typedef QMap<unsigned int, unsigned int>::iterator map_it;
-
-
 #include <QtMultimedia/QMediaPlayer>
 #include <QFile>
 
+#include "product.hh"
 class window;
 
 #define STATE_READY             0
@@ -18,13 +14,14 @@ class window;
 #define STATE_BUSY              2
 
 #define ALL_BUTTONS                 -1
-#define BUTTON_INSERT_COIN          0
-#define BUTTON_PRODUCT_COKE         1
-#define BUTTON_PRODUCT_COKE_LIGHT   2
-#define BUTTON_PRODUCT_SPRITE       3
-#define BUTTON_PRODUCT_WATER        4
-#define BUTTON_PRODUCT_JUICE        5
-#define BUTTON_REFUND               6
+#define BUTTON_INSERT_COIN          -2
+#define BUTTON_REFUND               -3
+#define BUTTON_PRODUCT_COKE         0
+#define BUTTON_PRODUCT_COKE_LIGHT   1
+#define BUTTON_PRODUCT_SPRITE       2
+#define BUTTON_PRODUCT_WATER        3
+#define BUTTON_PRODUCT_JUICE        4
+
 
 class automaton : public QObject
 {
@@ -33,7 +30,7 @@ class automaton : public QObject
     public:
     static automaton* getVendor();
     void vendorSlot(const unsigned int buttonPressed);
-    map* parseFile(QFile* file);
+    bool parseDataFiles();
 
     signals:
     void vendorDisplayStatus(QString status);
@@ -50,16 +47,17 @@ class automaton : public QObject
     // Methods:
     // Constructor -> Singleton-Pattern
     automaton();
-    void resetVendor();
 
     // Attributes
     static automaton* vendor;
     unsigned int state;
     unsigned int numberCustomerCoins;
     unsigned int productRequiredCoins;
-    //first int identifies product, second is prices in number of coins
-    map* prices;
+    unsigned int productDesired;
+    QVector<product*> products;
     QMediaPlayer* player;
+    QFile* fileRevenue;
+    QFile* fileContent;
 };
 
 #endif // AUTOMATON_HH

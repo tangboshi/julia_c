@@ -3,6 +3,8 @@
 #include "automaton.hh"
 
 #include <QWebView>
+#include <QAction>
+#include <QMessageBox>
 
 automaton* vendor = automaton::getVendor();
 
@@ -27,6 +29,7 @@ window::window(QWidget *parent) :
     connect(vendor, &automaton::vendorDisplayDetails, this, &window::changeVendorDisplayDetails);
     connect(vendor, &automaton::deactivateButton, this, &window::deactivateButtonSlot);
     connect(vendor, &automaton::activateButton, this, &window::activateButtonSlot);
+    connect(vendor, &automaton::vendorState, this, &window::uiNewStateSlot);
 
     ui->vendorInner->load(QUrl("qrc:/html/index.html"));
     ui->vendorInner->setStyleSheet("qrc:/html/default-style.css");
@@ -118,4 +121,35 @@ void window::on_productFiveButton_clicked()
 void window::on_refundButton_clicked()
 {
     vendor->vendorSlot(BUTTON_REFUND);
+}
+
+void window::uiNewStateSlot(unsigned int state)
+{
+    switch (state)
+    {
+        case STATE_READY:
+            ui->labelReady->setStyleSheet("QLabel {background: red;}");
+            ui->labelAcceptingMoney->setStyleSheet("QLabel {background: #ccc;}");
+            ui->labelBusy->setStyleSheet("QLabel {background: #ccc;}");
+            break;
+        case STATE_ACCEPTING_MONEY:
+            ui->labelReady->setStyleSheet("QLabel {background: #ccc;}");
+            ui->labelAcceptingMoney->setStyleSheet("QLabel {background: red;}");
+            ui->labelBusy->setStyleSheet("QLabel {background: #ccc;}");
+            break;
+        case STATE_BUSY:
+            ui->labelReady->setStyleSheet("QLabel {background: #ccc;}");
+            ui->labelAcceptingMoney->setStyleSheet("QLabel {background: #ccc;}");
+            ui->labelBusy->setStyleSheet("QLabel {background: red;}");
+            break;
+        default:
+            break;
+    }
+}
+
+void window::on_actionAbout_triggered()
+{
+    QMessageBox msg;
+    msg.setText("Just a vending machine programmed by Alexander Pastor, purely for fun and educational purposes.");
+    msg.exec();
 }

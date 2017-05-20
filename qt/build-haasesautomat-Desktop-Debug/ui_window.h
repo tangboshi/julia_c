@@ -22,7 +22,6 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
-#include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -45,16 +44,23 @@ public:
     QLabel *vendorDisplayDetails;
     QPushButton *productOneButton;
     QWidget *machineInner;
+    QWebView *webviewRevenue;
+    QLabel *labelRevenue;
+    QLabel *labelState;
+    QLabel *labelReady;
+    QLabel *labelBusy;
+    QLabel *labelAcceptingMoney;
+    QLabel *labelContent;
+    QWebView *webViewContent;
     QMenuBar *menuBar;
     QMenu *menu;
-    QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *window)
     {
         if (window->objectName().isEmpty())
             window->setObjectName(QStringLiteral("window"));
-        window->resize(495, 609);
+        window->resize(495, 590);
         actionAbout = new QAction(window);
         actionAbout->setObjectName(QStringLiteral("actionAbout"));
         centralWidget = new QWidget(window);
@@ -104,6 +110,55 @@ public:
         vendorTabs->addTab(customerInterface, QString());
         machineInner = new QWidget();
         machineInner->setObjectName(QStringLiteral("machineInner"));
+        webviewRevenue = new QWebView(machineInner);
+        webviewRevenue->setObjectName(QStringLiteral("webviewRevenue"));
+        webviewRevenue->setGeometry(QRect(10, 50, 441, 111));
+        webviewRevenue->setUrl(QUrl(QStringLiteral("about:blank")));
+        labelRevenue = new QLabel(machineInner);
+        labelRevenue->setObjectName(QStringLiteral("labelRevenue"));
+        labelRevenue->setGeometry(QRect(10, 20, 441, 31));
+        labelRevenue->setStyleSheet(QLatin1String("background: #ccc; \n"
+"font: 14pt \"Cantarell\";\n"
+"qproperty-alignment: AlignCenter;"));
+        labelState = new QLabel(machineInner);
+        labelState->setObjectName(QStringLiteral("labelState"));
+        labelState->setGeometry(QRect(10, 180, 441, 31));
+        labelState->setStyleSheet(QLatin1String("background:#ccc;\n"
+"qproperty-alignment: AlignCenter;\n"
+"font: 14pt \"Cantarell\";\n"
+""));
+        labelReady = new QLabel(machineInner);
+        labelReady->setObjectName(QStringLiteral("labelReady"));
+        labelReady->setGeometry(QRect(30, 220, 191, 31));
+        labelReady->setStyleSheet(QLatin1String("background:red;\n"
+"qproperty-alignment: AlignCenter;\n"
+"font: 14pt \"Cantarell\";\n"
+""));
+        labelBusy = new QLabel(machineInner);
+        labelBusy->setObjectName(QStringLiteral("labelBusy"));
+        labelBusy->setGeometry(QRect(140, 260, 191, 31));
+        labelBusy->setStyleSheet(QLatin1String("background:#ccc;\n"
+"qproperty-alignment: AlignCenter;\n"
+"font: 14pt \"Cantarell\";\n"
+""));
+        labelAcceptingMoney = new QLabel(machineInner);
+        labelAcceptingMoney->setObjectName(QStringLiteral("labelAcceptingMoney"));
+        labelAcceptingMoney->setGeometry(QRect(240, 220, 191, 31));
+        labelAcceptingMoney->setStyleSheet(QLatin1String("background:#ccc;\n"
+"qproperty-alignment: AlignCenter;\n"
+"font: 14pt \"Cantarell\";\n"
+""));
+        labelContent = new QLabel(machineInner);
+        labelContent->setObjectName(QStringLiteral("labelContent"));
+        labelContent->setGeometry(QRect(10, 320, 441, 31));
+        labelContent->setStyleSheet(QLatin1String("background:#ccc;\n"
+"qproperty-alignment: AlignCenter;\n"
+"font: 14pt \"Cantarell\";\n"
+""));
+        webViewContent = new QWebView(machineInner);
+        webViewContent->setObjectName(QStringLiteral("webViewContent"));
+        webViewContent->setGeometry(QRect(10, 350, 441, 111));
+        webViewContent->setUrl(QUrl(QStringLiteral("about:blank")));
         vendorTabs->addTab(machineInner, QString());
         window->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(window);
@@ -112,9 +167,6 @@ public:
         menu = new QMenu(menuBar);
         menu->setObjectName(QStringLiteral("menu"));
         window->setMenuBar(menuBar);
-        mainToolBar = new QToolBar(window);
-        mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
-        window->addToolBar(Qt::TopToolBarArea, mainToolBar);
         statusBar = new QStatusBar(window);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         window->setStatusBar(statusBar);
@@ -144,6 +196,12 @@ public:
         vendorDisplayDetails->setText(QApplication::translate("window", "Detailinformation", Q_NULLPTR));
         productOneButton->setText(QApplication::translate("window", "1", Q_NULLPTR));
         vendorTabs->setTabText(vendorTabs->indexOf(customerInterface), QApplication::translate("window", "Tab 1", Q_NULLPTR));
+        labelRevenue->setText(QApplication::translate("window", "Umsatz", Q_NULLPTR));
+        labelState->setText(QApplication::translate("window", "Zustand", Q_NULLPTR));
+        labelReady->setText(QApplication::translate("window", "READY", Q_NULLPTR));
+        labelBusy->setText(QApplication::translate("window", "BUSY", Q_NULLPTR));
+        labelAcceptingMoney->setText(QApplication::translate("window", "ACCEPTING MONEY", Q_NULLPTR));
+        labelContent->setText(QApplication::translate("window", "Inhalt", Q_NULLPTR));
         vendorTabs->setTabText(vendorTabs->indexOf(machineInner), QApplication::translate("window", "Tab 2", Q_NULLPTR));
         menu->setTitle(QApplication::translate("window", "?", Q_NULLPTR));
     } // retranslateUi

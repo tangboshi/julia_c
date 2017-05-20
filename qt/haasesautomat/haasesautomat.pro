@@ -25,11 +25,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         window.cpp \
-    automaton.cc
+    automaton.cc \
+    product.cc
 
 HEADERS  += window.h \
     automaton.hh \
-    utility.h
+    utility.h \
+    product.hh
 
 FORMS    += window.ui
 

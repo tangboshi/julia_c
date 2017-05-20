@@ -33,7 +33,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = haasesautomat1.0.0
-DISTDIR = /home/alex/0_data/2017_Julia/qt/build-haasesautomat-Desktop-Debug/.tmp/haasesautomat1.0.0
+DISTDIR = /home/alex/0_data/2017_Julia/git/qt/build-haasesautomat-Desktop-Debug/.tmp/haasesautomat1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath-link,/usr/lib
 LIBS          = $(SUBLIBS) -lQt5WebKitWidgets -lQt5MultimediaWidgets -lQt5Widgets -lQt5WebKit -lQt5Multimedia -lQt5Gui -lQt5Network -lQt5Core -lGL -lpthread -lpulse-mainloop-glib -lpulse -lglib-2.0 
@@ -50,12 +50,14 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../haasesautomat/main.cpp \
 		../haasesautomat/window.cpp \
-		../haasesautomat/automaton.cc qrc_resources.cpp \
+		../haasesautomat/automaton.cc \
+		../haasesautomat/product.cc qrc_resources.cpp \
 		moc_window.cpp \
 		moc_automaton.cpp
 OBJECTS       = main.o \
 		window.o \
 		automaton.o \
+		product.o \
 		qrc_resources.o \
 		moc_window.o \
 		moc_automaton.o
@@ -309,9 +311,11 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/lex.prf \
 		../haasesautomat/haasesautomat.pro ../haasesautomat/window.h \
 		../haasesautomat/automaton.hh \
-		../haasesautomat/utility.h ../haasesautomat/main.cpp \
+		../haasesautomat/utility.h \
+		../haasesautomat/product.hh ../haasesautomat/main.cpp \
 		../haasesautomat/window.cpp \
-		../haasesautomat/automaton.cc
+		../haasesautomat/automaton.cc \
+		../haasesautomat/product.cc
 QMAKE_TARGET  = haasesautomat
 DESTDIR       = 
 TARGET        = haasesautomat
@@ -856,8 +860,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../haasesautomat/resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../haasesautomat/window.h ../haasesautomat/automaton.hh ../haasesautomat/utility.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../haasesautomat/main.cpp ../haasesautomat/window.cpp ../haasesautomat/automaton.cc $(DISTDIR)/
+	$(COPY_FILE) --parents ../haasesautomat/window.h ../haasesautomat/automaton.hh ../haasesautomat/utility.h ../haasesautomat/product.hh $(DISTDIR)/
+	$(COPY_FILE) --parents ../haasesautomat/main.cpp ../haasesautomat/window.cpp ../haasesautomat/automaton.cc ../haasesautomat/product.cc $(DISTDIR)/
 	$(COPY_FILE) --parents ../haasesautomat/window.ui $(DISTDIR)/
 
 
@@ -888,12 +892,8 @@ compiler_rcc_clean:
 qrc_resources.cpp: ../haasesautomat/resources.qrc \
 		/usr/bin/rcc \
 		../haasesautomat/data/revenue.dat \
-		../haasesautomat/data/products.dat \
-		../haasesautomat/img/bottle_1.png \
-		../haasesautomat/img/bottle_3.jpg \
+		../haasesautomat/data/content.dat \
 		../haasesautomat/img/coin.png \
-		../haasesautomat/img/bottle_3.png \
-		../haasesautomat/img/bottle_2.png \
 		../haasesautomat/html/functions.js \
 		../haasesautomat/html/index.html \
 		../haasesautomat/html/default-style.css \
@@ -924,12 +924,13 @@ compiler_moc_header_clean:
 moc_window.cpp: ../haasesautomat/window.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/alex/0_data/2017_Julia/qt/haasesautomat -I/usr/include/qt -I/usr/include/qt/QtWebKitWidgets -I/usr/include/qt/QtMultimediaWidgets -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtWebKit -I/usr/include/qt/QtMultimedia -I/usr/include/qt/QtGui -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtCore -I. -I/usr/include/c++/6.3.1 -I/usr/include/c++/6.3.1/x86_64-pc-linux-gnu -I/usr/include/c++/6.3.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include-fixed -I/usr/include ../haasesautomat/window.h -o moc_window.cpp
+	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/alex/0_data/2017_Julia/git/qt/haasesautomat -I/usr/include/qt -I/usr/include/qt/QtWebKitWidgets -I/usr/include/qt/QtMultimediaWidgets -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtWebKit -I/usr/include/qt/QtMultimedia -I/usr/include/qt/QtGui -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtCore -I. -I/usr/include/c++/6.3.1 -I/usr/include/c++/6.3.1/x86_64-pc-linux-gnu -I/usr/include/c++/6.3.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include-fixed -I/usr/include ../haasesautomat/window.h -o moc_window.cpp
 
-moc_automaton.cpp: ../haasesautomat/automaton.hh \
+moc_automaton.cpp: ../haasesautomat/product.hh \
+		../haasesautomat/automaton.hh \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/alex/0_data/2017_Julia/qt/haasesautomat -I/usr/include/qt -I/usr/include/qt/QtWebKitWidgets -I/usr/include/qt/QtMultimediaWidgets -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtWebKit -I/usr/include/qt/QtMultimedia -I/usr/include/qt/QtGui -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtCore -I. -I/usr/include/c++/6.3.1 -I/usr/include/c++/6.3.1/x86_64-pc-linux-gnu -I/usr/include/c++/6.3.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include-fixed -I/usr/include ../haasesautomat/automaton.hh -o moc_automaton.cpp
+	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/alex/0_data/2017_Julia/git/qt/haasesautomat -I/usr/include/qt -I/usr/include/qt/QtWebKitWidgets -I/usr/include/qt/QtMultimediaWidgets -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtWebKit -I/usr/include/qt/QtMultimedia -I/usr/include/qt/QtGui -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtCore -I. -I/usr/include/c++/6.3.1 -I/usr/include/c++/6.3.1/x86_64-pc-linux-gnu -I/usr/include/c++/6.3.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include-fixed -I/usr/include ../haasesautomat/automaton.hh -o moc_automaton.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -956,13 +957,18 @@ main.o: ../haasesautomat/main.cpp ../haasesautomat/window.h
 
 window.o: ../haasesautomat/window.cpp ../haasesautomat/window.h \
 		ui_window.h \
-		../haasesautomat/automaton.hh
+		../haasesautomat/automaton.hh \
+		../haasesautomat/product.hh
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o window.o ../haasesautomat/window.cpp
 
 automaton.o: ../haasesautomat/automaton.cc ../haasesautomat/automaton.hh \
+		../haasesautomat/product.hh \
 		../haasesautomat/window.h \
 		../haasesautomat/utility.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o automaton.o ../haasesautomat/automaton.cc
+
+product.o: ../haasesautomat/product.cc ../haasesautomat/product.hh
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o product.o ../haasesautomat/product.cc
 
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp

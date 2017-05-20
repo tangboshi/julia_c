@@ -30,6 +30,10 @@ private slots:
     void on_productFiveButton_clicked();
     void on_refundButton_clicked();
 
+    void uiNewStateSlot(unsigned int state);
+
+    void on_actionAbout_triggered();
+
 private:
     Ui::window *ui;
 };

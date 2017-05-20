@@ -10,22 +10,88 @@ automaton* automaton::vendor = nullptr;
 automaton::automaton() :
     state(STATE_READY),
     numberCustomerCoins(0),
-    prices(parseFile(new QFile)),
-    player(new QMediaPlayer())
+    products(*(new QVector<product*>))
 {
-    player->setVolume(100);
+    parseDataFiles();
+    connect(this, &automaton::vendorState, this, &automaton::vendorStateSlot);
 }
 
-map* automaton::parseFile(QFile *file)
+bool automaton::parseDataFiles()
 {
-    map* newMap = new map;
-    map_it it = newMap->begin();
-    newMap->insert(it,   BUTTON_PRODUCT_COKE,        3);
-    newMap->insert(it,   BUTTON_PRODUCT_COKE_LIGHT,  3);
-    newMap->insert(it,   BUTTON_PRODUCT_SPRITE,      3);
-    newMap->insert(it,   BUTTON_PRODUCT_WATER,       1);
-    newMap->insert(it,   BUTTON_PRODUCT_JUICE,       2);
-    return newMap;
+
+    QFile file("/home/alex/0_data/2017_Julia/git/qt/haasesautomat/data/content.dat");
+    if(!file.open(QIODevice::ReadOnly))
+    {
+        qDebug() << file.QFileDevice::errorString();
+    }
+
+    QTextStream stream(&file);
+    QString content = stream.readAll();
+
+    QStringList list = content.split(QRegExp("\\s+"), QString::SkipEmptyParts);
+    //qDebug() << list;
+
+    unsigned int j = 0;
+    QVector<QString> productNames, productImages;
+    QVector<unsigned int> productPrices, productStock;
+    for (QStringList::iterator it = list.begin(); it != list.end(); ++it)
+    {
+        if(list.size() % 4 != 0)
+        {
+            qDebug() << "content.dat corrupted. size:" << list.size();
+            return false;
+        }
+
+        QString current = *it;
+        qDebug() << current;
+
+        switch (j % 4)
+        {
+            case 0:
+                productNames.push_back(current);
+                break;
+            case 1:
+                productImages.push_back(current);
+                break;
+            case 2:
+                productPrices.push_back(current.toUInt());
+                break;
+            case 3:
+                productStock.push_back(current.toUInt());
+                break;
+            default:
+                break;
+        }
+        j++;
+    }
+
+    QVector<QString>::Iterator it_names = productNames.begin();
+    QVector<QString>::Iterator it_images = productImages.begin();
+    QVector<unsigned int>::Iterator it_prices = productPrices.begin();
+    QVector<unsigned int>::Iterator it_stock = productStock.begin();
+
+    for(int i=0; i < productNames.size(); i++)
+    {
+        products.push_back(new product);
+        products[i]->setName(*it_names);
+        products[i]->setImage(*it_images);
+        products[i]->setPrice((*it_prices));
+        products[i]->setStock((*it_stock));
+
+        it_names++;
+        it_images++;
+        it_prices++;
+        it_stock++;
+
+        qDebug() << "i: " << i << " name: " << products[i]->getName();
+        qDebug() << "i: " << i << " image: " << products[i]->getImage();
+        qDebug() << "i: " << i << " price: " << products[i]->getPrice();
+        qDebug() << "i: " << i << " stock: " << products[i]->getStock();
+    }
+
+    //qDebug() << "Test: " << (*products.begin())->getImage();
+
+    return true;
 }
 
 automaton* automaton::getVendor()
@@ -35,19 +101,13 @@ automaton* automaton::getVendor()
     return vendor;
 }
 
-void automaton::resetVendor()
-{
-    numberCustomerCoins = 0;
-    productRequiredCoins = 0;
-    emit vendorState(STATE_BUSY);
-    delay(2500);
-    state = STATE_READY;
-    emit vendorDisplayStatus("Bereit!");
-    emit vendorDisplayDetails("");
-}
-
 void automaton::vendorSlot(const unsigned int buttonPressed)
 {
+    player = new QMediaPlayer;
+    player->setMedia(QUrl("qrc:/snd/button-pressed.mp3"));
+    player->play();
+    delay(800);
+
     switch (buttonPressed)
     {
         case BUTTON_INSERT_COIN:
@@ -57,24 +117,29 @@ void automaton::vendorSlot(const unsigned int buttonPressed)
                 case STATE_ACCEPTING_MONEY:
                 {
                     numberCustomerCoins++;
+                    emit vendorDisplayDetails("Es fehlen noch: "+QString::number(productRequiredCoins - numberCustomerCoins)+" Münzen.");
                     vendor->player->setMedia(QUrl("qrc:/snd/insert-coin.wav"));
                     vendor->player->play();
-                    if (numberCustomerCoins == productRequiredCoins)
+                    delay(2000);
+                    if (numberCustomerCoins >= productRequiredCoins)
                     {
+                        unsigned int remainingStock = products[productDesired]->getStock();
+                        products[productDesired]->setStock(--remainingStock);
+
                         vendor->player->setMedia(QUrl("qrc:/snd/drop-bottle.mp3"));
                         vendor->player->play();
+
                         emit revenue(productRequiredCoins);
-                        resetVendor();
                         emit vendorDisplayStatus("Vielen Dank!");
                         emit vendorDisplayDetails("Bis zum nächsten Mal.");
-                        resetVendor();
+                        emit vendorState(STATE_READY);
                     }
                     break;
                 }
                 default:
-                    emit vendorDisplayStatus("Wählen Sie ein Produkt!");
-                    emit vendorDisplayDetails("Geldschlitz gesperrt!");
-                    resetVendor();
+                    emit vendorDisplayStatus("Wählen Sie zuerst ein Produkt!");
+                    emit vendorDisplayDetails("");
+                    emit vendorState(STATE_READY);
                     break;
             }
             break;
@@ -89,10 +154,20 @@ void automaton::vendorSlot(const unsigned int buttonPressed)
             {
                 case STATE_READY:
                     {
-                        state = STATE_ACCEPTING_MONEY;
-                        productRequiredCoins = 2;
-                        emit vendorDisplayStatus("Produkt "+QString::number(buttonPressed)+" ausgewählt");
+                        productDesired = buttonPressed;
+                        unsigned int remainingStock = products[productDesired]->getStock();
+
+                        if(remainingStock <= 0)
+                        {
+                            emit vendorDisplayStatus("Produkt leider ausverkauft!");
+                            emit vendorState(STATE_READY);
+                            return;
+                        }
+
+                        productRequiredCoins = products[buttonPressed]->getPrice();
+                        emit vendorDisplayStatus("Produkt "+QString::number(buttonPressed+1)+" ausgewählt");
                         emit vendorDisplayDetails("Preis: "+QString::number(productRequiredCoins)+" Münzen.");
+                        emit vendorState(STATE_ACCEPTING_MONEY);
                     }
                     break;
                 case STATE_ACCEPTING_MONEY:
@@ -100,7 +175,7 @@ void automaton::vendorSlot(const unsigned int buttonPressed)
                         emit vendorDisplayStatus("Bereits Produkt ausgewählt!");
                         emit vendorDisplayDetails("Zurücksetzen: Roter Knopf.");
                         delay(1000);
-                        emit vendorDisplayDetails("Preis: "+QString::number(productRequiredCoins)+" Münzen.");
+                        emit vendorDisplayDetails("Es fehlen: "+QString::number(productRequiredCoins - numberCustomerCoins)+" Münzen.");
                     }
                     break;
                 default:
@@ -117,7 +192,7 @@ void automaton::vendorSlot(const unsigned int buttonPressed)
                     vendor->player->setMedia(QUrl("qrc:/snd/coin-refund.mp3"));
                     vendor->player->play();
                 }
-                resetVendor();
+                emit vendorState(STATE_READY);
                 break;
             }
         default:
@@ -127,11 +202,22 @@ void automaton::vendorSlot(const unsigned int buttonPressed)
 
 void automaton::vendorStateSlot(unsigned int newState)
 {
+    state = newState;
     switch(newState)
     {
         case STATE_BUSY:
-            // deactivate all buttons
             emit deactivateButton(ALL_BUTTONS);
+            break;
+        case STATE_READY:
+            emit vendorState(STATE_BUSY);
+            numberCustomerCoins = 0;
+            productRequiredCoins = 999;
+            delay(2800);
+            // avoid recursion
+            state = STATE_READY;
+            emit vendorDisplayStatus("Bereit!");
+            emit vendorDisplayDetails("");
+            emit activateButton(ALL_BUTTONS);
             break;
         default:
             break;
