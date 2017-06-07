@@ -72,7 +72,7 @@ public:
     {
         if (window->objectName().isEmpty())
             window->setObjectName(QStringLiteral("window"));
-        window->resize(1059, 638);
+        window->resize(1138, 638);
         actionAbout = new QAction(window);
         actionAbout->setObjectName(QStringLiteral("actionAbout"));
         centralWidget = new QWidget(window);
@@ -224,7 +224,7 @@ public:
         screenshotOptions->addTab(tab, QString());
         labelScreenshotPreview = new QLabel(centralWidget);
         labelScreenshotPreview->setObjectName(QStringLiteral("labelScreenshotPreview"));
-        labelScreenshotPreview->setGeometry(QRect(340, 40, 711, 561));
+        labelScreenshotPreview->setGeometry(QRect(340, 40, 791, 561));
         labelScreenshotPreview->setStyleSheet(QLatin1String("background: #000;\n"
 "color: #ccc;\n"
 "qproperty-alignment: AlignCenter;\n"
@@ -234,7 +234,7 @@ public:
 ""));
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(340, 10, 711, 31));
+        label->setGeometry(QRect(340, 10, 791, 31));
         label->setStyleSheet(QLatin1String("qproperty-alignment: AlignCenter;\n"
 "background: #000;\n"
 "color: #ccc;\n"
@@ -245,7 +245,7 @@ public:
         window->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(window);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1059, 25));
+        menuBar->setGeometry(QRect(0, 0, 1138, 25));
         menuAbout = new QMenu(menuBar);
         menuAbout->setObjectName(QStringLiteral("menuAbout"));
         window->setMenuBar(menuBar);

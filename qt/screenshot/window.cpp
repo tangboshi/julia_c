@@ -114,8 +114,8 @@ void window::takeScreenshot()
 
 void window::updatePreview()
 {
-    ui->labelScreenshotPreview->setPixmap(screenshot.scaled(screenshot.size(),
-                                                            Qt::IgnoreAspectRatio,
+    ui->labelScreenshotPreview->setPixmap(screenshot.scaled(ui->labelScreenshotPreview->size(),
+                                                            Qt::KeepAspectRatio,
                                                             Qt::SmoothTransformation));
 }
 
