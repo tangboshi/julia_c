@@ -1,0 +1,722 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>window</class>
+ <widget class="QMainWindow" name="window">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1059</width>
+    <height>638</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Simple Screenshot Tool</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QTabWidget" name="screenshotOptions">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>321</width>
+      <height>471</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="controls">
+     <attribute name="title">
+      <string>Controls</string>
+     </attribute>
+     <widget class="QPushButton" name="buttonTake">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>120</y>
+        <width>301</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Take Screenshot</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="buttonStop">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>190</y>
+        <width>301</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Stop Periodic Screenshot</string>
+      </property>
+      <property name="shortcut">
+       <string>Ctrl+C</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelNextScreenshotIn">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>301</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:#000;
+color:#ccc;
+font-size:16px;
+padding:10px;
+qproperty-alignment:AlignCenter;
+border-top-left-radius:5px;
+border-top-right-radius:5px;</string>
+      </property>
+      <property name="text">
+       <string>Next Screenshot in</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelNextScreenshotInTime">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>80</y>
+        <width>301</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:#000;
+color:#ccc;
+font-size:16px;
+qproperty-alignment: AlignCenter;
+padding-top:5px;
+border-bottom-left-radius:5px;
+border-bottom-right-radius:5px;
+</string>
+      </property>
+      <property name="text">
+       <string>0000</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="options">
+     <attribute name="title">
+      <string>Shoot Options</string>
+     </attribute>
+     <widget class="QLabel" name="labelPeriod">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>130</y>
+        <width>301</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">padding-left: 10px;
+background: #ccc;</string>
+      </property>
+      <property name="text">
+       <string>Period (ms)</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkboxPeriodicScreenshot">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>70</y>
+        <width>301</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">padding: 10px;
+background: #ccc;</string>
+      </property>
+      <property name="text">
+       <string>Periodic Screenshot</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinboxPeriod">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>140</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>500</number>
+      </property>
+      <property name="maximum">
+       <number>3600000</number>
+      </property>
+      <property name="singleStep">
+       <number>500</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelPrepare">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>301</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">padding-left: 10px;
+background: #ccc;</string>
+      </property>
+      <property name="text">
+       <string>Prepare (ms)</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinboxPrepareDelay">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>20</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>0</number>
+      </property>
+      <property name="maximum">
+       <number>3600000</number>
+      </property>
+      <property name="singleStep">
+       <number>500</number>
+      </property>
+      <property name="value">
+       <number>0</number>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkboxHideWindow">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>250</y>
+        <width>301</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">padding: 10px;
+background: #ccc;</string>
+      </property>
+      <property name="text">
+       <string>Hide This Window From Screenshot</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelNumberScreenshots">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>190</y>
+        <width>301</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">padding-left: 10px;
+background: #ccc;</string>
+      </property>
+      <property name="text">
+       <string>Number of Screenshots</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinboxNumberScreenshots">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>200</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>2</number>
+      </property>
+      <property name="maximum">
+       <number>100000</number>
+      </property>
+      <property name="singleStep">
+       <number>1</number>
+      </property>
+      <property name="value">
+       <number>50</number>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Save Options</string>
+     </attribute>
+     <widget class="QLabel" name="labelSavePath">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>301</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">padding-left: 10px;
+background: #ccc;</string>
+      </property>
+      <property name="text">
+       <string>Set Save Path</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="buttonSavePath">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>20</y>
+        <width>111</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>...</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelFileNamePrefix">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>70</y>
+        <width>301</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">padding-left: 10px;
+background: #ccc;</string>
+      </property>
+      <property name="text">
+       <string>File Name Prefix</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelFileNameSuffix">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>250</y>
+        <width>301</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">padding-left: 10px;
+background: #ccc;</string>
+      </property>
+      <property name="text">
+       <string>File Name Suffix</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelFileNameTrunk">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>130</y>
+        <width>301</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">padding-left: 10px;
+background: #ccc;</string>
+      </property>
+      <property name="text">
+       <string>File Name Trunk</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="dropdownPrefix">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>80</y>
+        <width>111</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>No Prefix</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>#_</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>dd_mm_</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>dd_mm_#_</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>mm_yy_</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>mm_yy_#_</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>dd_mm_yy_</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>dd_mm_yy_#_</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>dd_mm_yyyy_</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>dd_mm_yyyy_#_</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>dd_mm_hh_mm_</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>dd_mm_hh_mm_#</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>dd_mm_yy_hh_mm_</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>dd_mm_yy_hh_mm_#_</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QTextEdit" name="textFileNameTrunk">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>140</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;untitled&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="dropdownSuffix">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>260</y>
+        <width>111</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>No Suffix</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>_#</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>_dd_mm</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>_dd_mm_#</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>_mm_yy</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>_mm_yy_#</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>_dd_mm_yy</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>_dd_mm_yy_#</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>_dd_mm_yyyy</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>_dd_mm_yyyy_#</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>_dd_mm_hh_mm</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>_dd_mm_hh_mm_#</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>_dd_mm_yy_hh_mm</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>_dd_mm_yy_hh_mm_#</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="labelFileNameDelimiter">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>190</y>
+        <width>301</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">padding-left: 10px;
+background: #ccc;</string>
+      </property>
+      <property name="text">
+       <string>File Name Delimiter</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="textFileNameDelimiter">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>200</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;_&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="placeholderText">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelFileFormat">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>310</y>
+        <width>301</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">padding-left: 10px;
+background: #ccc;</string>
+      </property>
+      <property name="text">
+       <string>File Format</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="dropdownFileFormat">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>320</y>
+        <width>111</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>png</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>jpg</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>bmp</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>tiff</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="labelFilenumberOffset">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>370</y>
+        <width>301</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">padding-left: 10px;
+background: #ccc;</string>
+      </property>
+      <property name="text">
+       <string># Offset</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinboxFilenumberOffset">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>380</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>0</number>
+      </property>
+      <property name="maximum">
+       <number>3600000</number>
+      </property>
+      <property name="singleStep">
+       <number>1</number>
+      </property>
+      <property name="value">
+       <number>0</number>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="labelScreenshotPreview">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>40</y>
+      <width>711</width>
+      <height>561</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: #000;
+color: #ccc;
+qproperty-alignment: AlignCenter;
+border: 3px solid #000;
+border-bottom-left-radius:5px;
+border-bottom-right-radius:5px;
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>10</y>
+      <width>711</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">qproperty-alignment: AlignCenter;
+background: #000;
+color: #ccc;
+font-size:16px;
+border-top-left-radius:5px;
+border-top-right-radius:5px;
+padding: 5px;</string>
+    </property>
+    <property name="text">
+     <string>Screenshot Preview</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1059</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>?</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <addaction name="menuAbout"/>
+  </widget>
+  <action name="actionAbout">
+   <property name="text">
+    <string>&amp;About</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

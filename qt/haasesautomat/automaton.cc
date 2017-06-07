@@ -20,7 +20,7 @@ bool automaton::parseDataFiles()
 {
 
     QFile file("/home/alex/0_data/2017_Julia/git/qt/haasesautomat/data/content.dat");
-    if(!file.open(QIODevice::ReadOnly))
+    if(!file.open(QIODevice::ReadWrite))
     {
         qDebug() << file.QFileDevice::errorString();
     }
@@ -165,14 +165,14 @@ void automaton::vendorSlot(const unsigned int buttonPressed)
                         }
 
                         productRequiredCoins = products[buttonPressed]->getPrice();
-                        emit vendorDisplayStatus("Produkt "+QString::number(buttonPressed+1)+" ausgewählt");
+                        emit vendorDisplayStatus(products[productDesired]->getName()+" ausgewählt");
                         emit vendorDisplayDetails("Preis: "+QString::number(productRequiredCoins)+" Münzen.");
                         emit vendorState(STATE_ACCEPTING_MONEY);
                     }
                     break;
                 case STATE_ACCEPTING_MONEY:
                     {
-                        emit vendorDisplayStatus("Bereits Produkt ausgewählt!");
+                        emit vendorDisplayStatus("Bereits "+products[productDesired]->getName()+" ausgewählt!");
                         emit vendorDisplayDetails("Zurücksetzen: Roter Knopf.");
                         delay(1000);
                         emit vendorDisplayDetails("Es fehlen: "+QString::number(productRequiredCoins - numberCustomerCoins)+" Münzen.");
