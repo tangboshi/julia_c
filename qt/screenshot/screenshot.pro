@@ -25,11 +25,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        window.cpp
+        window.cpp \
+    fakeglass.cpp
 
 HEADERS += \
         window.h \
-    utility.h
+    utility.h \
+    fakeglass.h
 
 FORMS += \
-        window.ui
+        window.ui \
+    fakeglass.ui

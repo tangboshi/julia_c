@@ -1,6 +1,7 @@
 #include "window.h"
 #include "ui_window.h"
 #include "utility.h"
+#include "fakeglass.h"
 
 QTimer* window::periodicScreenshotTimer = new QTimer;
 QTimer* window::nextScreenshotInfoTimer = new QTimer;
@@ -8,7 +9,8 @@ QTimer* window::nextScreenshotInfoTimer = new QTimer;
 window::window(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::window),
-    screenshotCountSession(0)
+    screenshotCountSession(0),
+    singletonFakeglass(fakeglass::getFakeglass())
 {
     ui->setupUi(this);
     setFixedSize(width(), height());
@@ -33,6 +35,11 @@ window::window(QWidget *parent) :
     // Set up timer to update next screenshot announcement
     connect(periodicScreenshotTimer, &QTimer::timeout, this, &window::setupNextScreenshotInfo);
     connect(nextScreenshotInfoTimer, &QTimer::timeout, this, &window::updateNextScreenshotIn);
+    // ////////////////////////////////////////////////////////
+
+    // ////////////////////////////////////////////////////////
+    // For shaped capture connect to fakeglass
+    connect(singletonFakeglass, &fakeglass::rectangleSelected, this, &window::setRectangleCoordinates);
     // ////////////////////////////////////////////////////////
 }
 
@@ -82,9 +89,72 @@ void window::on_buttonTake_clicked()
 
 void window::takeScreenshot()
 {
+    QMessageBox* msg = new QMessageBox;
+
     // ////////////////////////////////////////////////////////
     // Taking the screenshot
-    screenshot = screen->grabWindow(0);
+    #define ENTIRE_SCREEN   0
+    #define WINDOW          1
+    #define RECTANGLE       2
+    #define POLYGON         3
+
+    switch(ui->dropdownTargetArea->currentIndex())
+    {
+        case ENTIRE_SCREEN:
+        {
+            screenshot = screen->grabWindow(0);
+            break;
+        }
+        case WINDOW:
+        {
+            ui->dropdownTargetArea->setCurrentIndex(ENTIRE_SCREEN);
+            msg->setText("Target area window not supported yet. Setting to entire screen.");
+            msg->exec();
+            takeScreenshot();
+            return;
+        }
+        case RECTANGLE:
+        {
+            singletonFakeglass->showFullScreen();
+            hide();
+
+            {
+                QEventLoop* loop = new QEventLoop;
+                connect(singletonFakeglass, &fakeglass::rectangleSelected, loop, &QEventLoop::quit);
+                loop->exec();
+            }
+
+            singletonFakeglass->hide();
+
+            {
+                QEventLoop* loop = new QEventLoop;
+                QTimer* timer = new QTimer;
+                timer->setInterval(500);
+                connect(timer, &QTimer::timeout, loop, &QEventLoop::quit);
+                timer->start();
+                loop->exec();
+            }
+
+            qDebug() << "Target area set to rectangle";
+            screenshot = screen->grabWindow(0,
+                                            rectanglePointA.x(),
+                                            rectanglePointA.y(),
+                                            rectanglePointB.x()-rectanglePointA.x(),
+                                            rectanglePointB.y()-rectanglePointA.y());
+
+            break;
+        }
+        case POLYGON:
+        {
+            ui->dropdownTargetArea->setCurrentIndex(RECTANGLE);
+            msg->setText("Target area polygon not supported yet. Setting to rectangle.");
+            msg->exec();
+            takeScreenshot();
+            return;
+        }
+        default:{break;}
+    }
+
     updatePreview();
 
     screenshotCount++;
@@ -244,6 +314,7 @@ void window::saveFile()
     }
 
     // Make sure a series of screenshots can be realized event without changing the parameters
+    // ... and asking too many questions :)
     if(ui->dropdownPrefix->currentIndex() == 0 &&
        ui->dropdownSuffix->currentIndex() == 0 &&
        ui->checkboxPeriodicScreenshot->isChecked())
@@ -263,7 +334,120 @@ void window::saveFile()
     }
     else
     {
-        QFile file(fileSavepath+"/"+fileSavename+"."+fileFormat);
+        QString path = fileSavepath+"/"+fileSavename+"."+fileFormat;
+
+        // ////////////////////////////////////////////////////////
+        // Check override mode and if prevent override if desired
+        QFileInfo checkFile(path);
+        if(checkFile.exists()&&checkFile.isFile())
+        {
+            qDebug() << "File exists, now look @ Override Policy";
+
+            #define ASK          0
+            #define PRESERVE     1
+            #define OVERRIDE     2
+            #define RENAME       3
+
+            QMessageBox* msg = new QMessageBox;
+            QMessageBox* msg2 = new QMessageBox;
+
+            switch (ui->dropdownOverridePolicy->currentIndex())
+            {
+                case ASK:
+                {
+                    qDebug() << "Override policy ask";
+                    msg->setText("The file "+path+" exists. Overwrite?");
+                    msg->setStandardButtons(QMessageBox::YesToAll|QMessageBox::Yes|QMessageBox::NoToAll|QMessageBox::No);
+                    //QPushButton* overrideAll = new QPushButton;
+                    //msg->addButton();
+                    int ret = msg->exec();
+                    switch (ret)
+                    {
+                        case QMessageBox::NoToAll:
+                        {
+                            msg2->setText("Action canceled.");
+                            msg2->exec();
+                            periodicScreenshotTimer->stop();
+                            if(ui->checkboxAutomaticallyResetSeriesCount->isChecked())
+                                screenshotCountSession = 0;
+                            if(!isVisible())
+                                show();
+                            return;
+                        }
+                        case QMessageBox::No:
+                        {
+                            if(!isVisible())
+                                show();
+                            break;
+                        }
+                        case QMessageBox::Yes:
+                        {
+                            qDebug() << "File "+path+" has been overwritten.";
+                            break;
+                        }
+                        case QMessageBox::YesToAll:
+                        {
+                            ui->dropdownOverridePolicy->setCurrentIndex(OVERRIDE);
+                            msg2->setText("Caution: Override policy has been set to override.");
+                            msg2->exec();
+                            break;
+                        }
+                        default:
+                            break;
+                    }
+                    break;
+                }
+                case PRESERVE:
+                {
+                    qDebug() << "The original file is preserved.";
+                    msg->setText("The file "+path+" exists. Action canceled.");
+                    msg->exec();
+                    periodicScreenshotTimer->stop();
+                    if(ui->checkboxAutomaticallyResetSeriesCount->isChecked())
+                        screenshotCountSession = 0;
+                    if(!isVisible())
+                        show();
+                    return;
+                }
+                case OVERRIDE:
+                {
+                    qDebug() << "File has been overwritten. "+path;
+                    break;
+                }
+                case RENAME:
+                {
+                    qDebug() << "Override policy is rename.";
+                    int counter = 2;
+                    QString newPath = path+"("+QString::number(counter)+")";
+                    checkFile.setFile(newPath);
+
+                    while(checkFile.exists() && checkFile.isFile())
+                    {
+                      counter++;
+                      qDebug() << newPath+" exists already!";
+                      newPath = path+"("+QString::number(counter)+")";
+                      checkFile.setFile(newPath);
+                    }
+
+                    break;
+                }
+                default:
+                {
+                    msg->setText("Error: Invalid override policy, halting all action!");
+                    msg->exec();
+                    periodicScreenshotTimer->stop();
+                    if(ui->checkboxAutomaticallyResetSeriesCount->isChecked())
+                        screenshotCountSession = 0;
+                    if(!isVisible())
+                        show();
+                    return;
+                }
+            }
+
+        }
+        // ////////////////////////////////////////////////////////
+
+        QFile file(path);
         file.open(QIODevice::WriteOnly);
 
         if(!screenshot.save(&file, fileFormat.toLatin1()))
@@ -310,10 +494,10 @@ void window::on_buttonSavePath_clicked()
 
 void window::updateNextScreenshotIn()
 {
-    //if(periodicScreenshotTimer->remainingTime() > 0)
+    if(periodicScreenshotTimer->remainingTime() > 0)
         ui->labelNextScreenshotInTime->setText(QString::number(periodicScreenshotTimer->remainingTime())+" ms");
-    //else
-        //ui->labelNextScreenshotInTime->setText("-- no periodic screenshot scheduled --");
+    else
+        ui->labelNextScreenshotInTime->setText("-- no periodic screenshot scheduled --");
     if(!periodicScreenshotTimer->isActive())
         nextScreenshotInfoTimer->stop();
 }
@@ -323,6 +507,11 @@ void window::setupNextScreenshotInfo()
     nextScreenshotInfoTimer->start(5);
 }
 
+void window::setRectangleCoordinates(QPoint start, QPoint end)
+{
+    rectanglePointA = start;
+    rectanglePointB = end;
+}
 
 void window::on_sliderOpacity_valueChanged(int value)
 {

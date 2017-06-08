@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tabControls">
      <attribute name="title">
@@ -186,6 +186,9 @@ background: #ccc;</string>
       </property>
       <property name="text">
        <string>Automatically Reset Series Count</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QCheckBox" name="checkboxMuteSound">
@@ -370,6 +373,66 @@ background: #ccc;</string>
        <number>50</number>
       </property>
      </widget>
+     <widget class="QComboBox" name="dropdownTargetArea">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>320</y>
+        <width>111</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="currentIndex">
+       <number>2</number>
+      </property>
+      <item>
+       <property name="text">
+        <string>Entire Screen</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Window</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Rectangle</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Polygon</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="labelTargetArea">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>310</y>
+        <width>301</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">padding-left: 10px;
+background: #ccc;</string>
+      </property>
+      <property name="text">
+       <string>Target Area</string>
+      </property>
+     </widget>
+     <zorder>labelTargetArea</zorder>
+     <zorder>labelPeriod</zorder>
+     <zorder>checkboxPeriodicScreenshot</zorder>
+     <zorder>spinboxPeriod</zorder>
+     <zorder>labelPrepare</zorder>
+     <zorder>spinboxPrepareDelay</zorder>
+     <zorder>checkboxHideWindow</zorder>
+     <zorder>labelNumberScreenshots</zorder>
+     <zorder>spinboxNumberScreenshots</zorder>
+     <zorder>dropdownTargetArea</zorder>
     </widget>
     <widget class="QWidget" name="tabSaveOptions">
      <attribute name="title">
@@ -756,33 +819,11 @@ background: #ccc;</string>
        <number>0</number>
       </property>
      </widget>
-    </widget>
-    <widget class="QWidget" name="tabUnimplemented">
-     <attribute name="title">
-      <string>Unimplemented</string>
-     </attribute>
-     <widget class="QLabel" name="labelOverridePolicy">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>301</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">padding-left: 10px;
-background: #ccc;</string>
-      </property>
-      <property name="text">
-       <string>Override Policy</string>
-      </property>
-     </widget>
      <widget class="QComboBox" name="dropdownOverridePolicy">
       <property name="geometry">
        <rect>
         <x>190</x>
-        <y>20</y>
+        <y>440</y>
         <width>111</width>
         <height>28</height>
        </rect>
@@ -808,11 +849,11 @@ background: #ccc;</string>
        </property>
       </item>
      </widget>
-     <widget class="QLabel" name="labelTargetArea">
+     <widget class="QLabel" name="labelOverridePolicy">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>70</y>
+        <y>430</y>
         <width>301</width>
         <height>51</height>
        </rect>
@@ -822,39 +863,36 @@ background: #ccc;</string>
 background: #ccc;</string>
       </property>
       <property name="text">
-       <string>Target Area</string>
+       <string>Override Policy</string>
       </property>
      </widget>
-     <widget class="QComboBox" name="dropdownTargetArea">
-      <property name="geometry">
-       <rect>
-        <x>190</x>
-        <y>80</y>
-        <width>111</width>
-        <height>28</height>
-       </rect>
-      </property>
-      <item>
-       <property name="text">
-        <string>Entire Screen</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Window</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Rectangle</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Polygon</string>
-       </property>
-      </item>
-     </widget>
+     <zorder>labelOverridePolicy</zorder>
+     <zorder>labelSavePath</zorder>
+     <zorder>buttonSavePath</zorder>
+     <zorder>labelFileNamePrefix</zorder>
+     <zorder>labelFileNameSuffix</zorder>
+     <zorder>labelFileNameTrunk</zorder>
+     <zorder>dropdownPrefix</zorder>
+     <zorder>textFileNameTrunk</zorder>
+     <zorder>dropdownSuffix</zorder>
+     <zorder>labelFileNameDelimiter</zorder>
+     <zorder>textFileNameDelimiter</zorder>
+     <zorder>labelFileFormat</zorder>
+     <zorder>dropdownFileFormat</zorder>
+     <zorder>labelFilenumberOffset</zorder>
+     <zorder>spinboxFilenumberOffset</zorder>
+     <zorder>dropdownOverridePolicy</zorder>
+    </widget>
+    <widget class="QWidget" name="tabUnimplemented">
+     <property name="mouseTracking">
+      <bool>false</bool>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <attribute name="title">
+      <string>u</string>
+     </attribute>
     </widget>
    </widget>
    <widget class="QLabel" name="labelScreenshotPreview">

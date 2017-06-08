@@ -16,6 +16,11 @@
 #include <QDateTime>
 #include <QShortcut>
 #include <QKeySequence>
+#include <QFileInfo>
+#include <QPushButton>
+#include <QEventLoop>
+
+class fakeglass;
 
 namespace Ui {
 class window;
@@ -38,6 +43,7 @@ private slots:
     void on_actionAbout_triggered();
     void on_buttonSavePath_clicked();
     void on_sliderOpacity_valueChanged(int value);
+    void on_buttonResetSeriesCount_clicked();
 
     void takeScreenshot();
     void saveFile();
@@ -46,7 +52,8 @@ private slots:
     void updateNextScreenshotIn();
     void setupNextScreenshotInfo();
 
-    void on_buttonResetSeriesCount_clicked();
+    // Dependent on fakeglass
+    void setRectangleCoordinates(QPoint start, QPoint end);
 
 private:
     Ui::window*            ui;
@@ -60,6 +67,10 @@ private:
     QString                fileSavepath;
     QString                fileSavename;
     QString                fileFormat;
+    fakeglass*             singletonFakeglass;
+    QPoint                 rectanglePointA;
+    QPoint                 rectanglePointB;
+    QVector<QPoint>        polygonPoints;
 };
 
 #endif // WINDOW_H
