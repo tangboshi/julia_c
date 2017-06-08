@@ -20,13 +20,13 @@
       <x>10</x>
       <y>10</y>
       <width>321</width>
-      <height>471</height>
+      <height>591</height>
      </rect>
     </property>
     <property name="currentIndex">
      <number>0</number>
     </property>
-    <widget class="QWidget" name="controls">
+    <widget class="QWidget" name="tabControls">
      <attribute name="title">
       <string>Controls</string>
      </attribute>
@@ -34,9 +34,9 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>120</y>
+        <y>110</y>
         <width>301</width>
-        <height>61</height>
+        <height>51</height>
        </rect>
       </property>
       <property name="text">
@@ -47,9 +47,9 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>190</y>
+        <y>170</y>
         <width>301</width>
-        <height>61</height>
+        <height>51</height>
        </rect>
       </property>
       <property name="text">
@@ -63,7 +63,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>40</y>
+        <y>10</y>
         <width>301</width>
         <height>41</height>
        </rect>
@@ -71,7 +71,7 @@
       <property name="styleSheet">
        <string notr="true">background:#000;
 color:#ccc;
-font-size:16px;
+font-size:24px;
 padding:10px;
 qproperty-alignment:AlignCenter;
 border-top-left-radius:5px;
@@ -85,9 +85,9 @@ border-top-right-radius:5px;</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>80</y>
+        <y>50</y>
         <width>301</width>
-        <height>31</height>
+        <height>41</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -95,17 +95,127 @@ border-top-right-radius:5px;</string>
 color:#ccc;
 font-size:16px;
 qproperty-alignment: AlignCenter;
-padding-top:5px;
 border-bottom-left-radius:5px;
 border-bottom-right-radius:5px;
 </string>
       </property>
       <property name="text">
-       <string>0000</string>
+       <string>-- no periodic screenshot scheduled --</string>
       </property>
      </widget>
+     <widget class="QSlider" name="sliderOpacity">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>440</y>
+        <width>261</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>25</number>
+      </property>
+      <property name="maximum">
+       <number>100</number>
+      </property>
+      <property name="singleStep">
+       <number>5</number>
+      </property>
+      <property name="value">
+       <number>100</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="invertedAppearance">
+       <bool>true</bool>
+      </property>
+      <property name="invertedControls">
+       <bool>false</bool>
+      </property>
+      <property name="tickPosition">
+       <enum>QSlider::TicksAbove</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelTransparency">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>390</y>
+        <width>301</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">padding-left: 10px;
+background: #ccc;
+padding-bottom:30px;</string>
+      </property>
+      <property name="text">
+       <string>Window Transparency</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="buttonResetSeriesCount">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>250</y>
+        <width>301</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Reset Series Count</string>
+      </property>
+      <property name="shortcut">
+       <string>Ctrl+C</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkboxAutomaticallyResetSeriesCount">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>310</y>
+        <width>301</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">padding: 10px;
+background: #ccc;</string>
+      </property>
+      <property name="text">
+       <string>Automatically Reset Series Count</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkboxMuteSound">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>490</y>
+        <width>301</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">padding: 10px;
+background: #ccc;</string>
+      </property>
+      <property name="text">
+       <string>Mute Sound</string>
+      </property>
+     </widget>
+     <zorder>labelTransparency</zorder>
+     <zorder>buttonTake</zorder>
+     <zorder>buttonStop</zorder>
+     <zorder>labelNextScreenshotIn</zorder>
+     <zorder>labelNextScreenshotInTime</zorder>
+     <zorder>sliderOpacity</zorder>
+     <zorder>buttonResetSeriesCount</zorder>
+     <zorder>checkboxAutomaticallyResetSeriesCount</zorder>
+     <zorder>checkboxMuteSound</zorder>
     </widget>
-    <widget class="QWidget" name="options">
+    <widget class="QWidget" name="tabShootOptions">
      <attribute name="title">
       <string>Shoot Options</string>
      </attribute>
@@ -261,7 +371,7 @@ background: #ccc;</string>
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="tab">
+    <widget class="QWidget" name="tabSaveOptions">
      <attribute name="title">
       <string>Save Options</string>
      </attribute>
@@ -645,6 +755,105 @@ background: #ccc;</string>
       <property name="value">
        <number>0</number>
       </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tabUnimplemented">
+     <attribute name="title">
+      <string>Unimplemented</string>
+     </attribute>
+     <widget class="QLabel" name="labelOverridePolicy">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>301</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">padding-left: 10px;
+background: #ccc;</string>
+      </property>
+      <property name="text">
+       <string>Override Policy</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="dropdownOverridePolicy">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>20</y>
+        <width>111</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>Ask</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Preserve</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Override</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Rename</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="labelTargetArea">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>70</y>
+        <width>301</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">padding-left: 10px;
+background: #ccc;</string>
+      </property>
+      <property name="text">
+       <string>Target Area</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="dropdownTargetArea">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>80</y>
+        <width>111</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>Entire Screen</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Window</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Rectangle</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Polygon</string>
+       </property>
+      </item>
      </widget>
     </widget>
    </widget>

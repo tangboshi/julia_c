@@ -21,6 +21,7 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTextEdit>
@@ -34,12 +35,17 @@ public:
     QAction *actionAbout;
     QWidget *centralWidget;
     QTabWidget *screenshotOptions;
-    QWidget *controls;
+    QWidget *tabControls;
     QPushButton *buttonTake;
     QPushButton *buttonStop;
     QLabel *labelNextScreenshotIn;
     QLabel *labelNextScreenshotInTime;
-    QWidget *options;
+    QSlider *sliderOpacity;
+    QLabel *labelTransparency;
+    QPushButton *buttonResetSeriesCount;
+    QCheckBox *checkboxAutomaticallyResetSeriesCount;
+    QCheckBox *checkboxMuteSound;
+    QWidget *tabShootOptions;
     QLabel *labelPeriod;
     QCheckBox *checkboxPeriodicScreenshot;
     QSpinBox *spinboxPeriod;
@@ -48,7 +54,7 @@ public:
     QCheckBox *checkboxHideWindow;
     QLabel *labelNumberScreenshots;
     QSpinBox *spinboxNumberScreenshots;
-    QWidget *tab;
+    QWidget *tabSaveOptions;
     QLabel *labelSavePath;
     QPushButton *buttonSavePath;
     QLabel *labelFileNamePrefix;
@@ -63,6 +69,11 @@ public:
     QComboBox *dropdownFileFormat;
     QLabel *labelFilenumberOffset;
     QSpinBox *spinboxFilenumberOffset;
+    QWidget *tabUnimplemented;
+    QLabel *labelOverridePolicy;
+    QComboBox *dropdownOverridePolicy;
+    QLabel *labelTargetArea;
+    QComboBox *dropdownTargetArea;
     QLabel *labelScreenshotPreview;
     QLabel *label;
     QMenuBar *menuBar;
@@ -79,149 +90,206 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         screenshotOptions = new QTabWidget(centralWidget);
         screenshotOptions->setObjectName(QStringLiteral("screenshotOptions"));
-        screenshotOptions->setGeometry(QRect(10, 10, 321, 471));
-        controls = new QWidget();
-        controls->setObjectName(QStringLiteral("controls"));
-        buttonTake = new QPushButton(controls);
+        screenshotOptions->setGeometry(QRect(10, 10, 321, 591));
+        tabControls = new QWidget();
+        tabControls->setObjectName(QStringLiteral("tabControls"));
+        buttonTake = new QPushButton(tabControls);
         buttonTake->setObjectName(QStringLiteral("buttonTake"));
-        buttonTake->setGeometry(QRect(10, 120, 301, 61));
-        buttonStop = new QPushButton(controls);
+        buttonTake->setGeometry(QRect(10, 110, 301, 51));
+        buttonStop = new QPushButton(tabControls);
         buttonStop->setObjectName(QStringLiteral("buttonStop"));
-        buttonStop->setGeometry(QRect(10, 190, 301, 61));
-        labelNextScreenshotIn = new QLabel(controls);
+        buttonStop->setGeometry(QRect(10, 170, 301, 51));
+        labelNextScreenshotIn = new QLabel(tabControls);
         labelNextScreenshotIn->setObjectName(QStringLiteral("labelNextScreenshotIn"));
-        labelNextScreenshotIn->setGeometry(QRect(10, 40, 301, 41));
+        labelNextScreenshotIn->setGeometry(QRect(10, 10, 301, 41));
         labelNextScreenshotIn->setStyleSheet(QLatin1String("background:#000;\n"
 "color:#ccc;\n"
-"font-size:16px;\n"
+"font-size:24px;\n"
 "padding:10px;\n"
 "qproperty-alignment:AlignCenter;\n"
 "border-top-left-radius:5px;\n"
 "border-top-right-radius:5px;"));
-        labelNextScreenshotInTime = new QLabel(controls);
+        labelNextScreenshotInTime = new QLabel(tabControls);
         labelNextScreenshotInTime->setObjectName(QStringLiteral("labelNextScreenshotInTime"));
-        labelNextScreenshotInTime->setGeometry(QRect(10, 80, 301, 31));
+        labelNextScreenshotInTime->setGeometry(QRect(10, 50, 301, 41));
         labelNextScreenshotInTime->setStyleSheet(QLatin1String("background:#000;\n"
 "color:#ccc;\n"
 "font-size:16px;\n"
 "qproperty-alignment: AlignCenter;\n"
-"padding-top:5px;\n"
 "border-bottom-left-radius:5px;\n"
 "border-bottom-right-radius:5px;\n"
 ""));
-        screenshotOptions->addTab(controls, QString());
-        options = new QWidget();
-        options->setObjectName(QStringLiteral("options"));
-        labelPeriod = new QLabel(options);
+        sliderOpacity = new QSlider(tabControls);
+        sliderOpacity->setObjectName(QStringLiteral("sliderOpacity"));
+        sliderOpacity->setGeometry(QRect(30, 440, 261, 21));
+        sliderOpacity->setMinimum(25);
+        sliderOpacity->setMaximum(100);
+        sliderOpacity->setSingleStep(5);
+        sliderOpacity->setValue(100);
+        sliderOpacity->setOrientation(Qt::Horizontal);
+        sliderOpacity->setInvertedAppearance(true);
+        sliderOpacity->setInvertedControls(false);
+        sliderOpacity->setTickPosition(QSlider::TicksAbove);
+        labelTransparency = new QLabel(tabControls);
+        labelTransparency->setObjectName(QStringLiteral("labelTransparency"));
+        labelTransparency->setGeometry(QRect(10, 390, 301, 91));
+        labelTransparency->setStyleSheet(QLatin1String("padding-left: 10px;\n"
+"background: #ccc;\n"
+"padding-bottom:30px;"));
+        buttonResetSeriesCount = new QPushButton(tabControls);
+        buttonResetSeriesCount->setObjectName(QStringLiteral("buttonResetSeriesCount"));
+        buttonResetSeriesCount->setGeometry(QRect(10, 250, 301, 51));
+        checkboxAutomaticallyResetSeriesCount = new QCheckBox(tabControls);
+        checkboxAutomaticallyResetSeriesCount->setObjectName(QStringLiteral("checkboxAutomaticallyResetSeriesCount"));
+        checkboxAutomaticallyResetSeriesCount->setGeometry(QRect(10, 310, 301, 51));
+        checkboxAutomaticallyResetSeriesCount->setStyleSheet(QLatin1String("padding: 10px;\n"
+"background: #ccc;"));
+        checkboxMuteSound = new QCheckBox(tabControls);
+        checkboxMuteSound->setObjectName(QStringLiteral("checkboxMuteSound"));
+        checkboxMuteSound->setGeometry(QRect(10, 490, 301, 51));
+        checkboxMuteSound->setStyleSheet(QLatin1String("padding: 10px;\n"
+"background: #ccc;"));
+        screenshotOptions->addTab(tabControls, QString());
+        labelTransparency->raise();
+        buttonTake->raise();
+        buttonStop->raise();
+        labelNextScreenshotIn->raise();
+        labelNextScreenshotInTime->raise();
+        sliderOpacity->raise();
+        buttonResetSeriesCount->raise();
+        checkboxAutomaticallyResetSeriesCount->raise();
+        checkboxMuteSound->raise();
+        tabShootOptions = new QWidget();
+        tabShootOptions->setObjectName(QStringLiteral("tabShootOptions"));
+        labelPeriod = new QLabel(tabShootOptions);
         labelPeriod->setObjectName(QStringLiteral("labelPeriod"));
         labelPeriod->setGeometry(QRect(10, 130, 301, 51));
         labelPeriod->setStyleSheet(QLatin1String("padding-left: 10px;\n"
 "background: #ccc;"));
-        checkboxPeriodicScreenshot = new QCheckBox(options);
+        checkboxPeriodicScreenshot = new QCheckBox(tabShootOptions);
         checkboxPeriodicScreenshot->setObjectName(QStringLiteral("checkboxPeriodicScreenshot"));
         checkboxPeriodicScreenshot->setGeometry(QRect(10, 70, 301, 51));
         checkboxPeriodicScreenshot->setStyleSheet(QLatin1String("padding: 10px;\n"
 "background: #ccc;"));
-        spinboxPeriod = new QSpinBox(options);
+        spinboxPeriod = new QSpinBox(tabShootOptions);
         spinboxPeriod->setObjectName(QStringLiteral("spinboxPeriod"));
         spinboxPeriod->setGeometry(QRect(190, 140, 111, 31));
         spinboxPeriod->setMinimum(500);
         spinboxPeriod->setMaximum(3600000);
         spinboxPeriod->setSingleStep(500);
-        labelPrepare = new QLabel(options);
+        labelPrepare = new QLabel(tabShootOptions);
         labelPrepare->setObjectName(QStringLiteral("labelPrepare"));
         labelPrepare->setGeometry(QRect(10, 10, 301, 51));
         labelPrepare->setStyleSheet(QLatin1String("padding-left: 10px;\n"
 "background: #ccc;"));
-        spinboxPrepareDelay = new QSpinBox(options);
+        spinboxPrepareDelay = new QSpinBox(tabShootOptions);
         spinboxPrepareDelay->setObjectName(QStringLiteral("spinboxPrepareDelay"));
         spinboxPrepareDelay->setGeometry(QRect(190, 20, 111, 31));
         spinboxPrepareDelay->setMinimum(0);
         spinboxPrepareDelay->setMaximum(3600000);
         spinboxPrepareDelay->setSingleStep(500);
         spinboxPrepareDelay->setValue(0);
-        checkboxHideWindow = new QCheckBox(options);
+        checkboxHideWindow = new QCheckBox(tabShootOptions);
         checkboxHideWindow->setObjectName(QStringLiteral("checkboxHideWindow"));
         checkboxHideWindow->setGeometry(QRect(10, 250, 301, 51));
         checkboxHideWindow->setStyleSheet(QLatin1String("padding: 10px;\n"
 "background: #ccc;"));
         checkboxHideWindow->setChecked(true);
-        labelNumberScreenshots = new QLabel(options);
+        labelNumberScreenshots = new QLabel(tabShootOptions);
         labelNumberScreenshots->setObjectName(QStringLiteral("labelNumberScreenshots"));
         labelNumberScreenshots->setGeometry(QRect(10, 190, 301, 51));
         labelNumberScreenshots->setStyleSheet(QLatin1String("padding-left: 10px;\n"
 "background: #ccc;"));
-        spinboxNumberScreenshots = new QSpinBox(options);
+        spinboxNumberScreenshots = new QSpinBox(tabShootOptions);
         spinboxNumberScreenshots->setObjectName(QStringLiteral("spinboxNumberScreenshots"));
         spinboxNumberScreenshots->setGeometry(QRect(190, 200, 111, 31));
         spinboxNumberScreenshots->setMinimum(2);
         spinboxNumberScreenshots->setMaximum(100000);
         spinboxNumberScreenshots->setSingleStep(1);
         spinboxNumberScreenshots->setValue(50);
-        screenshotOptions->addTab(options, QString());
-        tab = new QWidget();
-        tab->setObjectName(QStringLiteral("tab"));
-        labelSavePath = new QLabel(tab);
+        screenshotOptions->addTab(tabShootOptions, QString());
+        tabSaveOptions = new QWidget();
+        tabSaveOptions->setObjectName(QStringLiteral("tabSaveOptions"));
+        labelSavePath = new QLabel(tabSaveOptions);
         labelSavePath->setObjectName(QStringLiteral("labelSavePath"));
         labelSavePath->setGeometry(QRect(10, 10, 301, 51));
         labelSavePath->setStyleSheet(QLatin1String("padding-left: 10px;\n"
 "background: #ccc;"));
-        buttonSavePath = new QPushButton(tab);
+        buttonSavePath = new QPushButton(tabSaveOptions);
         buttonSavePath->setObjectName(QStringLiteral("buttonSavePath"));
         buttonSavePath->setGeometry(QRect(190, 20, 111, 28));
-        labelFileNamePrefix = new QLabel(tab);
+        labelFileNamePrefix = new QLabel(tabSaveOptions);
         labelFileNamePrefix->setObjectName(QStringLiteral("labelFileNamePrefix"));
         labelFileNamePrefix->setGeometry(QRect(10, 70, 301, 51));
         labelFileNamePrefix->setStyleSheet(QLatin1String("padding-left: 10px;\n"
 "background: #ccc;"));
-        labelFileNameSuffix = new QLabel(tab);
+        labelFileNameSuffix = new QLabel(tabSaveOptions);
         labelFileNameSuffix->setObjectName(QStringLiteral("labelFileNameSuffix"));
         labelFileNameSuffix->setGeometry(QRect(10, 250, 301, 51));
         labelFileNameSuffix->setStyleSheet(QLatin1String("padding-left: 10px;\n"
 "background: #ccc;"));
-        labelFileNameTrunk = new QLabel(tab);
+        labelFileNameTrunk = new QLabel(tabSaveOptions);
         labelFileNameTrunk->setObjectName(QStringLiteral("labelFileNameTrunk"));
         labelFileNameTrunk->setGeometry(QRect(10, 130, 301, 51));
         labelFileNameTrunk->setStyleSheet(QLatin1String("padding-left: 10px;\n"
 "background: #ccc;"));
-        dropdownPrefix = new QComboBox(tab);
+        dropdownPrefix = new QComboBox(tabSaveOptions);
         dropdownPrefix->setObjectName(QStringLiteral("dropdownPrefix"));
         dropdownPrefix->setGeometry(QRect(190, 80, 111, 28));
-        textFileNameTrunk = new QTextEdit(tab);
+        textFileNameTrunk = new QTextEdit(tabSaveOptions);
         textFileNameTrunk->setObjectName(QStringLiteral("textFileNameTrunk"));
         textFileNameTrunk->setGeometry(QRect(190, 140, 111, 31));
-        dropdownSuffix = new QComboBox(tab);
+        dropdownSuffix = new QComboBox(tabSaveOptions);
         dropdownSuffix->setObjectName(QStringLiteral("dropdownSuffix"));
         dropdownSuffix->setGeometry(QRect(190, 260, 111, 28));
-        labelFileNameDelimiter = new QLabel(tab);
+        labelFileNameDelimiter = new QLabel(tabSaveOptions);
         labelFileNameDelimiter->setObjectName(QStringLiteral("labelFileNameDelimiter"));
         labelFileNameDelimiter->setGeometry(QRect(10, 190, 301, 51));
         labelFileNameDelimiter->setStyleSheet(QLatin1String("padding-left: 10px;\n"
 "background: #ccc;"));
-        textFileNameDelimiter = new QTextEdit(tab);
+        textFileNameDelimiter = new QTextEdit(tabSaveOptions);
         textFileNameDelimiter->setObjectName(QStringLiteral("textFileNameDelimiter"));
         textFileNameDelimiter->setGeometry(QRect(190, 200, 111, 31));
-        labelFileFormat = new QLabel(tab);
+        labelFileFormat = new QLabel(tabSaveOptions);
         labelFileFormat->setObjectName(QStringLiteral("labelFileFormat"));
         labelFileFormat->setGeometry(QRect(10, 310, 301, 51));
         labelFileFormat->setStyleSheet(QLatin1String("padding-left: 10px;\n"
 "background: #ccc;"));
-        dropdownFileFormat = new QComboBox(tab);
+        dropdownFileFormat = new QComboBox(tabSaveOptions);
         dropdownFileFormat->setObjectName(QStringLiteral("dropdownFileFormat"));
         dropdownFileFormat->setGeometry(QRect(190, 320, 111, 28));
-        labelFilenumberOffset = new QLabel(tab);
+        labelFilenumberOffset = new QLabel(tabSaveOptions);
         labelFilenumberOffset->setObjectName(QStringLiteral("labelFilenumberOffset"));
         labelFilenumberOffset->setGeometry(QRect(10, 370, 301, 51));
         labelFilenumberOffset->setStyleSheet(QLatin1String("padding-left: 10px;\n"
 "background: #ccc;"));
-        spinboxFilenumberOffset = new QSpinBox(tab);
+        spinboxFilenumberOffset = new QSpinBox(tabSaveOptions);
         spinboxFilenumberOffset->setObjectName(QStringLiteral("spinboxFilenumberOffset"));
         spinboxFilenumberOffset->setGeometry(QRect(190, 380, 111, 31));
         spinboxFilenumberOffset->setMinimum(0);
         spinboxFilenumberOffset->setMaximum(3600000);
         spinboxFilenumberOffset->setSingleStep(1);
         spinboxFilenumberOffset->setValue(0);
-        screenshotOptions->addTab(tab, QString());
+        screenshotOptions->addTab(tabSaveOptions, QString());
+        tabUnimplemented = new QWidget();
+        tabUnimplemented->setObjectName(QStringLiteral("tabUnimplemented"));
+        labelOverridePolicy = new QLabel(tabUnimplemented);
+        labelOverridePolicy->setObjectName(QStringLiteral("labelOverridePolicy"));
+        labelOverridePolicy->setGeometry(QRect(10, 10, 301, 51));
+        labelOverridePolicy->setStyleSheet(QLatin1String("padding-left: 10px;\n"
+"background: #ccc;"));
+        dropdownOverridePolicy = new QComboBox(tabUnimplemented);
+        dropdownOverridePolicy->setObjectName(QStringLiteral("dropdownOverridePolicy"));
+        dropdownOverridePolicy->setGeometry(QRect(190, 20, 111, 28));
+        labelTargetArea = new QLabel(tabUnimplemented);
+        labelTargetArea->setObjectName(QStringLiteral("labelTargetArea"));
+        labelTargetArea->setGeometry(QRect(10, 70, 301, 51));
+        labelTargetArea->setStyleSheet(QLatin1String("padding-left: 10px;\n"
+"background: #ccc;"));
+        dropdownTargetArea = new QComboBox(tabUnimplemented);
+        dropdownTargetArea->setObjectName(QStringLiteral("dropdownTargetArea"));
+        dropdownTargetArea->setGeometry(QRect(190, 80, 111, 28));
+        screenshotOptions->addTab(tabUnimplemented, QString());
         labelScreenshotPreview = new QLabel(centralWidget);
         labelScreenshotPreview->setObjectName(QStringLiteral("labelScreenshotPreview"));
         labelScreenshotPreview->setGeometry(QRect(340, 40, 791, 561));
@@ -269,14 +337,19 @@ public:
         buttonStop->setText(QApplication::translate("window", "Stop Periodic Screenshot", Q_NULLPTR));
         buttonStop->setShortcut(QApplication::translate("window", "Ctrl+C", Q_NULLPTR));
         labelNextScreenshotIn->setText(QApplication::translate("window", "Next Screenshot in", Q_NULLPTR));
-        labelNextScreenshotInTime->setText(QApplication::translate("window", "0000", Q_NULLPTR));
-        screenshotOptions->setTabText(screenshotOptions->indexOf(controls), QApplication::translate("window", "Controls", Q_NULLPTR));
+        labelNextScreenshotInTime->setText(QApplication::translate("window", "-- no periodic screenshot scheduled --", Q_NULLPTR));
+        labelTransparency->setText(QApplication::translate("window", "Window Transparency", Q_NULLPTR));
+        buttonResetSeriesCount->setText(QApplication::translate("window", "Reset Series Count", Q_NULLPTR));
+        buttonResetSeriesCount->setShortcut(QApplication::translate("window", "Ctrl+C", Q_NULLPTR));
+        checkboxAutomaticallyResetSeriesCount->setText(QApplication::translate("window", "Automatically Reset Series Count", Q_NULLPTR));
+        checkboxMuteSound->setText(QApplication::translate("window", "Mute Sound", Q_NULLPTR));
+        screenshotOptions->setTabText(screenshotOptions->indexOf(tabControls), QApplication::translate("window", "Controls", Q_NULLPTR));
         labelPeriod->setText(QApplication::translate("window", "Period (ms)", Q_NULLPTR));
         checkboxPeriodicScreenshot->setText(QApplication::translate("window", "Periodic Screenshot", Q_NULLPTR));
         labelPrepare->setText(QApplication::translate("window", "Prepare (ms)", Q_NULLPTR));
         checkboxHideWindow->setText(QApplication::translate("window", "Hide This Window From Screenshot", Q_NULLPTR));
         labelNumberScreenshots->setText(QApplication::translate("window", "Number of Screenshots", Q_NULLPTR));
-        screenshotOptions->setTabText(screenshotOptions->indexOf(options), QApplication::translate("window", "Shoot Options", Q_NULLPTR));
+        screenshotOptions->setTabText(screenshotOptions->indexOf(tabShootOptions), QApplication::translate("window", "Shoot Options", Q_NULLPTR));
         labelSavePath->setText(QApplication::translate("window", "Set Save Path", Q_NULLPTR));
         buttonSavePath->setText(QApplication::translate("window", "...", Q_NULLPTR));
         labelFileNamePrefix->setText(QApplication::translate("window", "File Name Prefix", Q_NULLPTR));
@@ -337,7 +410,24 @@ public:
          << QApplication::translate("window", "tiff", Q_NULLPTR)
         );
         labelFilenumberOffset->setText(QApplication::translate("window", "# Offset", Q_NULLPTR));
-        screenshotOptions->setTabText(screenshotOptions->indexOf(tab), QApplication::translate("window", "Save Options", Q_NULLPTR));
+        screenshotOptions->setTabText(screenshotOptions->indexOf(tabSaveOptions), QApplication::translate("window", "Save Options", Q_NULLPTR));
+        labelOverridePolicy->setText(QApplication::translate("window", "Override Policy", Q_NULLPTR));
+        dropdownOverridePolicy->clear();
+        dropdownOverridePolicy->insertItems(0, QStringList()
+         << QApplication::translate("window", "Ask", Q_NULLPTR)
+         << QApplication::translate("window", "Preserve", Q_NULLPTR)
+         << QApplication::translate("window", "Override", Q_NULLPTR)
+         << QApplication::translate("window", "Rename", Q_NULLPTR)
+        );
+        labelTargetArea->setText(QApplication::translate("window", "Target Area", Q_NULLPTR));
+        dropdownTargetArea->clear();
+        dropdownTargetArea->insertItems(0, QStringList()
+         << QApplication::translate("window", "Entire Screen", Q_NULLPTR)
+         << QApplication::translate("window", "Window", Q_NULLPTR)
+         << QApplication::translate("window", "Rectangle", Q_NULLPTR)
+         << QApplication::translate("window", "Polygon", Q_NULLPTR)
+        );
+        screenshotOptions->setTabText(screenshotOptions->indexOf(tabUnimplemented), QApplication::translate("window", "Unimplemented", Q_NULLPTR));
         labelScreenshotPreview->setText(QString());
         label->setText(QApplication::translate("window", "Screenshot Preview", Q_NULLPTR));
         menuAbout->setTitle(QApplication::translate("window", "?", Q_NULLPTR));

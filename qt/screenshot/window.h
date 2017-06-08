@@ -37,6 +37,7 @@ private slots:
     void on_buttonStop_clicked();
     void on_actionAbout_triggered();
     void on_buttonSavePath_clicked();
+    void on_sliderOpacity_valueChanged(int value);
 
     void takeScreenshot();
     void saveFile();
@@ -44,6 +45,8 @@ private slots:
     void setSavepath();
     void updateNextScreenshotIn();
     void setupNextScreenshotInfo();
+
+    void on_buttonResetSeriesCount_clicked();
 
 private:
     Ui::window*            ui;

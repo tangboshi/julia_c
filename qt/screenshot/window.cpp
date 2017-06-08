@@ -91,19 +91,24 @@ void window::takeScreenshot()
     screenshotCountSession++;
     saveFile();
 
-    QApplication::beep();
+    if(!ui->checkboxMuteSound->isChecked())
+        QApplication::beep();
+
     qDebug() << "Number of Screenshots: " << QString::number(screenshotCount);
     // ////////////////////////////////////////////////////////
 
 
     // ////////////////////////////////////////////////////////
     // Stop taking screenshots & hiding if screenshot job done
-    if( screenshotCount > ui->spinboxNumberScreenshots->value() ||
+    if( screenshotCount >= ui->spinboxNumberScreenshots->value() ||
         interruptScreenshots ||
         !ui->checkboxPeriodicScreenshot->isChecked())
     {
         show();
         periodicScreenshotTimer->stop();
+
+        if(ui->checkboxAutomaticallyResetSeriesCount->isChecked())
+            screenshotCountSession = 0;
 
         QMessageBox* msg = new QMessageBox;
         msg->setText(QString("You have taken %1 screenshot(s)!").arg(screenshotCount));
@@ -238,6 +243,12 @@ void window::saveFile()
         default:    format = "png";break;
     }
 
+    // Make sure a series of screenshots can be realized event without changing the parameters
+    if(ui->dropdownPrefix->currentIndex() == 0 &&
+       ui->dropdownSuffix->currentIndex() == 0 &&
+       ui->checkboxPeriodicScreenshot->isChecked())
+            suffix = delimiter+count;
+
     fileSavename        =   prefix+trunk+suffix;
     fileFormat          =   format;
 
@@ -299,14 +310,26 @@ void window::on_buttonSavePath_clicked()
 
 void window::updateNextScreenshotIn()
 {
-    ui->labelNextScreenshotInTime->setText(QString::number(periodicScreenshotTimer->remainingTime()));
+    //if(periodicScreenshotTimer->remainingTime() > 0)
+        ui->labelNextScreenshotInTime->setText(QString::number(periodicScreenshotTimer->remainingTime())+" ms");
+    //else
+        //ui->labelNextScreenshotInTime->setText("-- no periodic screenshot scheduled --");
     if(!periodicScreenshotTimer->isActive())
         nextScreenshotInfoTimer->stop();
-
-    // qDebug() << "Checkpoint reached";
 }
 
 void window::setupNextScreenshotInfo()
 {
     nextScreenshotInfoTimer->start(5);
+}
+
+
+void window::on_sliderOpacity_valueChanged(int value)
+{
+    this->setProperty("windowOpacity", (float) value/100);
+}
+
+void window::on_buttonResetSeriesCount_clicked()
+{
+    screenshotCountSession = 0;
 }
