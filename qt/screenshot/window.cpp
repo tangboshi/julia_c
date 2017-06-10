@@ -3,8 +3,6 @@
 #include "utility.h"
 #include "fakeglass.h"
 
-#include <QApplication>
-
 const QPoint INVALID_POINT = QPoint(-1,-1);
 
 QTimer* window::periodicScreenshotTimer = new QTimer;
@@ -19,7 +17,10 @@ window::window(QWidget *parent) :
     rectanglePointB(INVALID_POINT)
 {
     ui->setupUi(this);
-    setFixedSize(width(), height());
+    //setFixedSize(width(), height());
+
+    //qDebug() << QStyleFactory::keys();
+    //qDebug() << QApplication::style()->metaObject()->className();
 
     connect(periodicScreenshotTimer, &QTimer::timeout, this, &window::takeScreenshot);
 
@@ -62,7 +63,9 @@ void window::resizeEvent(QResizeEvent * event)
     QSize scaledSize = screenshot.size();
     scaledSize.scale(ui->labelScreenshotPreview->size(), Qt::KeepAspectRatio);
 
-    if (!ui->labelScreenshotPreview->pixmap() || scaledSize != ui->labelScreenshotPreview->pixmap()->size())
+    if (!ui->labelScreenshotPreview->pixmap() ||
+        (scaledSize.width() + 50 < ui->labelScreenshotPreview->pixmap()->size().width() &&
+         scaledSize.height() + 50 < ui->labelScreenshotPreview->pixmap()->size().height()))
     {
         updatePreview();
     }

@@ -15,6 +15,7 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
@@ -25,6 +26,7 @@
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTextEdit>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -36,6 +38,7 @@ public:
     QAction *actionSave;
     QAction *actionTake;
     QWidget *centralWidget;
+    QHBoxLayout *horizontalLayout_2;
     QTabWidget *screenshotOptions;
     QWidget *tabControls;
     QPushButton *buttonTake;
@@ -79,8 +82,9 @@ public:
     QSpinBox *spinboxFilenumberOffset;
     QComboBox *dropdownOverridePolicy;
     QLabel *labelOverridePolicy;
-    QLabel *labelScreenshotPreview;
+    QVBoxLayout *layoutScreenshotPreview;
     QLabel *label;
+    QLabel *labelScreenshotPreview;
     QMenuBar *menuBar;
     QMenu *menuAbout;
     QMenu *menuFile;
@@ -90,7 +94,12 @@ public:
     {
         if (window->objectName().isEmpty())
             window->setObjectName(QStringLiteral("window"));
-        window->resize(1138, 638);
+        window->resize(1138, 578);
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(window->sizePolicy().hasHeightForWidth());
+        window->setSizePolicy(sizePolicy);
         actionAbout = new QAction(window);
         actionAbout->setObjectName(QStringLiteral("actionAbout"));
         actionSave = new QAction(window);
@@ -99,17 +108,34 @@ public:
         actionTake->setObjectName(QStringLiteral("actionTake"));
         centralWidget = new QWidget(window);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        centralWidget->setStyleSheet(QStringLiteral("background:#bbb;"));
+        horizontalLayout_2 = new QHBoxLayout(centralWidget);
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         screenshotOptions = new QTabWidget(centralWidget);
         screenshotOptions->setObjectName(QStringLiteral("screenshotOptions"));
-        screenshotOptions->setGeometry(QRect(10, 10, 321, 591));
+        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Expanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(screenshotOptions->sizePolicy().hasHeightForWidth());
+        screenshotOptions->setSizePolicy(sizePolicy1);
+        screenshotOptions->setMinimumSize(QSize(325, 0));
+        screenshotOptions->setStyleSheet(QLatin1String("color:#000;\n"
+"background:#bbb;"));
         tabControls = new QWidget();
         tabControls->setObjectName(QStringLiteral("tabControls"));
+        tabControls->setStyleSheet(QStringLiteral("color:#222;"));
         buttonTake = new QPushButton(tabControls);
         buttonTake->setObjectName(QStringLiteral("buttonTake"));
         buttonTake->setGeometry(QRect(10, 110, 301, 51));
+        buttonTake->setStyleSheet(QLatin1String("background:#ccc;\n"
+"padding:10px;"));
         buttonStop = new QPushButton(tabControls);
         buttonStop->setObjectName(QStringLiteral("buttonStop"));
         buttonStop->setGeometry(QRect(10, 170, 301, 51));
+        buttonStop->setStyleSheet(QLatin1String("background:#ccc;\n"
+"padding:10px;"));
         labelNextScreenshotIn = new QLabel(tabControls);
         labelNextScreenshotIn->setObjectName(QStringLiteral("labelNextScreenshotIn"));
         labelNextScreenshotIn->setGeometry(QRect(10, 10, 301, 41));
@@ -133,6 +159,7 @@ public:
         sliderOpacity = new QSlider(tabControls);
         sliderOpacity->setObjectName(QStringLiteral("sliderOpacity"));
         sliderOpacity->setGeometry(QRect(30, 440, 261, 21));
+        sliderOpacity->setStyleSheet(QStringLiteral("background:#ccc;"));
         sliderOpacity->setMinimum(25);
         sliderOpacity->setMaximum(100);
         sliderOpacity->setSingleStep(5);
@@ -150,6 +177,8 @@ public:
         buttonResetSeriesCount = new QPushButton(tabControls);
         buttonResetSeriesCount->setObjectName(QStringLiteral("buttonResetSeriesCount"));
         buttonResetSeriesCount->setGeometry(QRect(10, 250, 301, 51));
+        buttonResetSeriesCount->setStyleSheet(QLatin1String("background:#ccc;\n"
+"padding:10px;"));
         checkboxAutomaticallyResetSeriesCount = new QCheckBox(tabControls);
         checkboxAutomaticallyResetSeriesCount->setObjectName(QStringLiteral("checkboxAutomaticallyResetSeriesCount"));
         checkboxAutomaticallyResetSeriesCount->setGeometry(QRect(10, 310, 301, 51));
@@ -173,6 +202,7 @@ public:
         checkboxMuteSound->raise();
         tabShootOptions = new QWidget();
         tabShootOptions->setObjectName(QStringLiteral("tabShootOptions"));
+        tabShootOptions->setStyleSheet(QStringLiteral("color:#222;"));
         labelPeriod = new QLabel(tabShootOptions);
         labelPeriod->setObjectName(QStringLiteral("labelPeriod"));
         labelPeriod->setGeometry(QRect(10, 130, 301, 51));
@@ -222,7 +252,7 @@ public:
         spinboxNumberScreenshots->setValue(5);
         dropdownTargetArea = new QComboBox(tabShootOptions);
         dropdownTargetArea->setObjectName(QStringLiteral("dropdownTargetArea"));
-        dropdownTargetArea->setGeometry(QRect(190, 320, 111, 28));
+        dropdownTargetArea->setGeometry(QRect(150, 320, 151, 28));
         labelTargetArea = new QLabel(tabShootOptions);
         labelTargetArea->setObjectName(QStringLiteral("labelTargetArea"));
         labelTargetArea->setGeometry(QRect(10, 310, 301, 51));
@@ -261,6 +291,7 @@ public:
         dropdownTargetWindowIdBase->raise();
         tabSaveOptions = new QWidget();
         tabSaveOptions->setObjectName(QStringLiteral("tabSaveOptions"));
+        tabSaveOptions->setStyleSheet(QStringLiteral("color:#222;"));
         labelSavePath = new QLabel(tabSaveOptions);
         labelSavePath->setObjectName(QStringLiteral("labelSavePath"));
         labelSavePath->setGeometry(QRect(10, 10, 301, 51));
@@ -346,19 +377,19 @@ public:
         labelFilenumberOffset->raise();
         spinboxFilenumberOffset->raise();
         dropdownOverridePolicy->raise();
-        labelScreenshotPreview = new QLabel(centralWidget);
-        labelScreenshotPreview->setObjectName(QStringLiteral("labelScreenshotPreview"));
-        labelScreenshotPreview->setGeometry(QRect(340, 40, 791, 561));
-        labelScreenshotPreview->setStyleSheet(QLatin1String("background: #000;\n"
-"color: #ccc;\n"
-"qproperty-alignment: AlignCenter;\n"
-"border: 3px solid #000;\n"
-"border-bottom-left-radius:5px;\n"
-"border-bottom-right-radius:5px;\n"
-""));
+
+        horizontalLayout_2->addWidget(screenshotOptions);
+
+        layoutScreenshotPreview = new QVBoxLayout();
+        layoutScreenshotPreview->setSpacing(0);
+        layoutScreenshotPreview->setObjectName(QStringLiteral("layoutScreenshotPreview"));
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(340, 10, 791, 31));
+        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
+        label->setSizePolicy(sizePolicy2);
         label->setStyleSheet(QLatin1String("qproperty-alignment: AlignCenter;\n"
 "background: #000;\n"
 "color: #ccc;\n"
@@ -366,6 +397,24 @@ public:
 "border-top-left-radius:5px;\n"
 "border-top-right-radius:5px;\n"
 "padding: 5px;"));
+
+        layoutScreenshotPreview->addWidget(label);
+
+        labelScreenshotPreview = new QLabel(centralWidget);
+        labelScreenshotPreview->setObjectName(QStringLiteral("labelScreenshotPreview"));
+        labelScreenshotPreview->setStyleSheet(QLatin1String("background: #000;\n"
+"color: #ccc;\n"
+"qproperty-alignment: AlignCenter;\n"
+"border: 3px solid #000;\n"
+"border-bottom-left-radius:5px;\n"
+"border-bottom-right-radius:5px;\n"
+""));
+
+        layoutScreenshotPreview->addWidget(labelScreenshotPreview);
+
+
+        horizontalLayout_2->addLayout(layoutScreenshotPreview);
+
         window->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(window);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -387,7 +436,7 @@ public:
 
         retranslateUi(window);
 
-        screenshotOptions->setCurrentIndex(2);
+        screenshotOptions->setCurrentIndex(0);
         dropdownTargetArea->setCurrentIndex(1);
         dropdownTargetWindowIdBase->setCurrentIndex(3);
         dropdownOverridePolicy->setCurrentIndex(2);
@@ -420,7 +469,7 @@ public:
         buttonStop->setShortcut(QApplication::translate("window", "Ctrl+C", Q_NULLPTR));
 #endif // QT_NO_SHORTCUT
         labelNextScreenshotIn->setText(QApplication::translate("window", "Next Screenshot in", Q_NULLPTR));
-        labelNextScreenshotInTime->setText(QApplication::translate("window", "-- no periodic screenshot scheduled --", Q_NULLPTR));
+        labelNextScreenshotInTime->setText(QApplication::translate("window", "(no periodic screenshot scheduled)", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
         labelTransparency->setToolTip(QApplication::translate("window", "<html><head/><body><p>Not particularly useful, but you can change the transparency of this window if it tickles your fancy.</p></body></html>", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
@@ -591,8 +640,8 @@ public:
 #endif // QT_NO_TOOLTIP
         labelOverridePolicy->setText(QApplication::translate("window", "Override Policy", Q_NULLPTR));
         screenshotOptions->setTabText(screenshotOptions->indexOf(tabSaveOptions), QApplication::translate("window", "Save Options", Q_NULLPTR));
-        labelScreenshotPreview->setText(QString());
         label->setText(QApplication::translate("window", "Screenshot Preview", Q_NULLPTR));
+        labelScreenshotPreview->setText(QString());
         menuAbout->setTitle(QApplication::translate("window", "?", Q_NULLPTR));
         menuFile->setTitle(QApplication::translate("window", "Fi&le", Q_NULLPTR));
         menuScreenshot->setTitle(QApplication::translate("window", "Sc&reenshot", Q_NULLPTR));

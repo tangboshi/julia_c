@@ -9,7 +9,7 @@ fakeglass::fakeglass(QWidget *parent) :
     ui(new Ui::fakeglass)
 {
     ui->setupUi(this);
-    setStyleSheet("background: rgba(0,0,0,255)");
+    setStyleSheet("background: rgba(255,255,255,255)");
     setWindowOpacity(0.6);
     setWindowFlags(Qt::FramelessWindowHint|Qt::WindowStaysOnTopHint);
 }
