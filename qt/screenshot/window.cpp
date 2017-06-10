@@ -97,9 +97,7 @@ void window::on_buttonTake_clicked()
 
     // Wait for the window to hide
     if(!ui->checkboxPeriodicScreenshot->isChecked())
-    {
-        delay(1000);
-    }
+        delay(3000);
 
     takeScreenshot();
 }
