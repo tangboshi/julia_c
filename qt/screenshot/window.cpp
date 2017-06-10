@@ -3,6 +3,8 @@
 #include "utility.h"
 #include "fakeglass.h"
 
+#include <QApplication>
+
 const QPoint INVALID_POINT = QPoint(-1,-1);
 
 QTimer* window::periodicScreenshotTimer = new QTimer;
@@ -103,15 +105,61 @@ void window::takeScreenshot()
     // ////////////////////////////////////////////////////////
     // Taking the screenshot
     #define ENTIRE_SCREEN   0
-    #define WINDOW          1
-    #define RECTANGLE       2
-    #define POLYGON         3
+    #define ACTIVE_WINDOW   1
+    #define WINDOW          2
+    #define RECTANGLE       3
+    #define POLYGON         4
+
+    #define BIN 0
+    #define OCT 1
+    #define DEC 2
+    #define HEX 3
+
+    unsigned int base;
+
+    switch (ui->dropdownTargetWindowIdBase->currentIndex())
+    {
+        case BIN: base=2; break;
+        case OCT: base=8; break;
+        case DEC: base=10; break;
+        case HEX: base=16; break;
+        default:  break;
+    }
 
     switch(ui->dropdownTargetArea->currentIndex())
     {
         case ENTIRE_SCREEN:
         {
             screenshot = screen->grabWindow(0);
+            break;
+        }
+        case ACTIVE_WINDOW:
+        {
+            static WId target;
+
+            //if (screenshotCount <= 1)
+            {
+                #ifdef __linux__
+                    int ret = system("xdotool");
+                    if(ret != 0x100)
+                    {
+                        msg->setText("Please install xdotool for active window detection. Retrieve value:"+QString::number(ret));
+                        msg->exec();
+                        break;
+                    }
+                    QProcess *process = new QProcess;
+                    process->start("xdotool", QStringList() << "getactivewindow");
+                    process->waitForFinished();
+                    QString output = process->readAllStandardOutput();
+                    target = output.toUInt();
+                    qDebug() << QString::number(target);
+                    screenshot = screen->grabWindow(target);
+                #else
+                    msg->setText("Feature not supported on non-Linux OS");
+                    msg->exec();
+                #endif
+            }
+
             break;
         }
         case WINDOW:
@@ -132,7 +180,7 @@ void window::takeScreenshot()
                     output = output.mid(pos+13,7);
                     qDebug() << QString::number(pos);
                     qDebug() << output;
-                    target = output.toUInt(0,16);
+                    target = output.toUInt(0,base);
                 #endif
             }
 

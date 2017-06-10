@@ -60,6 +60,8 @@ public:
     QLabel *labelTargetArea;
     QTextEdit *textTargetWindowId;
     QLabel *labelTargetWindowId;
+    QLabel *labelTargetWindowIdBase;
+    QComboBox *dropdownTargetWindowIdBase;
     QWidget *tabSaveOptions;
     QLabel *labelSavePath;
     QPushButton *buttonSavePath;
@@ -234,6 +236,14 @@ public:
         labelTargetWindowId->setGeometry(QRect(10, 370, 301, 51));
         labelTargetWindowId->setStyleSheet(QLatin1String("padding-left: 10px;\n"
 "background: #ccc;"));
+        labelTargetWindowIdBase = new QLabel(tabShootOptions);
+        labelTargetWindowIdBase->setObjectName(QStringLiteral("labelTargetWindowIdBase"));
+        labelTargetWindowIdBase->setGeometry(QRect(10, 430, 301, 51));
+        labelTargetWindowIdBase->setStyleSheet(QLatin1String("padding-left: 10px;\n"
+"background: #ccc;"));
+        dropdownTargetWindowIdBase = new QComboBox(tabShootOptions);
+        dropdownTargetWindowIdBase->setObjectName(QStringLiteral("dropdownTargetWindowIdBase"));
+        dropdownTargetWindowIdBase->setGeometry(QRect(190, 440, 111, 28));
         screenshotOptions->addTab(tabShootOptions, QString());
         labelTargetWindowId->raise();
         labelTargetArea->raise();
@@ -247,6 +257,8 @@ public:
         spinboxNumberScreenshots->raise();
         dropdownTargetArea->raise();
         textTargetWindowId->raise();
+        labelTargetWindowIdBase->raise();
+        dropdownTargetWindowIdBase->raise();
         tabSaveOptions = new QWidget();
         tabSaveOptions->setObjectName(QStringLiteral("tabSaveOptions"));
         labelSavePath = new QLabel(tabSaveOptions);
@@ -376,7 +388,8 @@ public:
         retranslateUi(window);
 
         screenshotOptions->setCurrentIndex(2);
-        dropdownTargetArea->setCurrentIndex(2);
+        dropdownTargetArea->setCurrentIndex(1);
+        dropdownTargetWindowIdBase->setCurrentIndex(3);
         dropdownOverridePolicy->setCurrentIndex(2);
 
 
@@ -387,41 +400,78 @@ public:
     {
         window->setWindowTitle(QApplication::translate("window", "Simple Screenshot Tool", Q_NULLPTR));
         actionAbout->setText(QApplication::translate("window", "&About", Q_NULLPTR));
-        actionSave->setText(QApplication::translate("window", "Save", Q_NULLPTR));
+        actionSave->setText(QApplication::translate("window", "&Save", Q_NULLPTR));
 #ifndef QT_NO_SHORTCUT
         actionSave->setShortcut(QApplication::translate("window", "Ctrl+S", Q_NULLPTR));
 #endif // QT_NO_SHORTCUT
-        actionTake->setText(QApplication::translate("window", "Take", Q_NULLPTR));
+        actionTake->setText(QApplication::translate("window", "&Take", Q_NULLPTR));
 #ifndef QT_NO_SHORTCUT
         actionTake->setShortcut(QApplication::translate("window", "Ctrl+T", Q_NULLPTR));
 #endif // QT_NO_SHORTCUT
+#ifndef QT_NO_TOOLTIP
+        buttonTake->setToolTip(QApplication::translate("window", "<html><head/><body><p>Take a screenshot. Go ahead!</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         buttonTake->setText(QApplication::translate("window", "Take Screenshot(s)", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        buttonStop->setToolTip(QApplication::translate("window", "<html><head/><body><p>Cancel periodic screenshot plan. Only usable if &quot;Hide This Window From Screenshot&quot; in the next tab is UNchecked.</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         buttonStop->setText(QApplication::translate("window", "Stop Periodic Screenshot", Q_NULLPTR));
 #ifndef QT_NO_SHORTCUT
         buttonStop->setShortcut(QApplication::translate("window", "Ctrl+C", Q_NULLPTR));
 #endif // QT_NO_SHORTCUT
         labelNextScreenshotIn->setText(QApplication::translate("window", "Next Screenshot in", Q_NULLPTR));
         labelNextScreenshotInTime->setText(QApplication::translate("window", "-- no periodic screenshot scheduled --", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        labelTransparency->setToolTip(QApplication::translate("window", "<html><head/><body><p>Not particularly useful, but you can change the transparency of this window if it tickles your fancy.</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         labelTransparency->setText(QApplication::translate("window", "Window Transparency", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        buttonResetSeriesCount->setToolTip(QApplication::translate("window", "<html><head/><body><p>Resets series count to 0.</p><p>Explanation: for each program session the screenshot numbering continues where it stopped when you last pressed &quot;Take Screenshot(s)&quot;. </p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         buttonResetSeriesCount->setText(QApplication::translate("window", "Reset Series Count", Q_NULLPTR));
 #ifndef QT_NO_SHORTCUT
         buttonResetSeriesCount->setShortcut(QApplication::translate("window", "Ctrl+C", Q_NULLPTR));
 #endif // QT_NO_SHORTCUT
+#ifndef QT_NO_TOOLTIP
+        checkboxAutomaticallyResetSeriesCount->setToolTip(QApplication::translate("window", "<html><head/><body><p>Automatically reset series count to 0 after job is finished.</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         checkboxAutomaticallyResetSeriesCount->setText(QApplication::translate("window", "Automatically Reset Series Count", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        checkboxMuteSound->setToolTip(QApplication::translate("window", "<html><head/><body><p>Don't play the screenshot sound upon taking the screenshot. Btw, the sound varies with the OS. For the interested: the sound is played by the QApplication::beep() call.</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         checkboxMuteSound->setText(QApplication::translate("window", "Mute Sound", Q_NULLPTR));
         screenshotOptions->setTabText(screenshotOptions->indexOf(tabControls), QApplication::translate("window", "Controls", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        labelPeriod->setToolTip(QApplication::translate("window", "<html><head/><body><p>The interval in between each of the screenshots. Only takes effect if &quot;Periodic Screenshot&quot; is checked. </p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         labelPeriod->setText(QApplication::translate("window", "Period (ms)", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        checkboxPeriodicScreenshot->setToolTip(QApplication::translate("window", "<html><head/><body><p>Basically a choice between taking multiple screenshots (number specified in &quot;Number of Screenshots&quot;) or just a single shot.</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         checkboxPeriodicScreenshot->setText(QApplication::translate("window", "Periodic Screenshot", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        labelPrepare->setToolTip(QApplication::translate("window", "<html><head/><body><p>The delay before the first screenshot is taken.</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         labelPrepare->setText(QApplication::translate("window", "Prepare (ms)", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        checkboxHideWindow->setToolTip(QApplication::translate("window", "<html><head/><body><p>Check to not have the screenshot tool's window interfere with your shooting.</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         checkboxHideWindow->setText(QApplication::translate("window", "Hide This Window From Screenshot", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        labelNumberScreenshots->setToolTip(QApplication::translate("window", "<html><head/><body><p>The number of screenshots you want to take.</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         labelNumberScreenshots->setText(QApplication::translate("window", "Number of Screenshots", Q_NULLPTR));
         dropdownTargetArea->clear();
         dropdownTargetArea->insertItems(0, QStringList()
          << QApplication::translate("window", "Entire Screen", Q_NULLPTR)
+         << QApplication::translate("window", "Active Window", Q_NULLPTR)
          << QApplication::translate("window", "Window", Q_NULLPTR)
          << QApplication::translate("window", "Rectangle", Q_NULLPTR)
          << QApplication::translate("window", "Polygon", Q_NULLPTR)
         );
+#ifndef QT_NO_TOOLTIP
+        labelTargetArea->setToolTip(QApplication::translate("window", "<html><head/><body><p>The area you want to take a screenshot of.</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         labelTargetArea->setText(QApplication::translate("window", "Target Area", Q_NULLPTR));
         textTargetWindowId->setHtml(QApplication::translate("window", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -429,12 +479,38 @@ public:
 "</style></head><body style=\" font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", Q_NULLPTR));
         textTargetWindowId->setPlaceholderText(QString());
+#ifndef QT_NO_TOOLTIP
+        labelTargetWindowId->setToolTip(QApplication::translate("window", "<html><head/><body><p>Used to identify the window you want to take a screenshot of. For OS other than Linux please use the powershell (Windows) or Quartz (OSX) to find out the WId. Takes effect only if &quot;Target Area&quot; is set to window.&quot;</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         labelTargetWindowId->setText(QApplication::translate("window", "Target Window Id", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        labelTargetWindowIdBase->setToolTip(QApplication::translate("window", "<html><head/><body><p>The base which is used to calculate the WId from the &quot;Target Window Id&quot; text input. Only takes effect if &quot;Target Area&quot; is set to window.</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+        labelTargetWindowIdBase->setText(QApplication::translate("window", "Target Window Id Base", Q_NULLPTR));
+        dropdownTargetWindowIdBase->clear();
+        dropdownTargetWindowIdBase->insertItems(0, QStringList()
+         << QApplication::translate("window", "Bin", Q_NULLPTR)
+         << QApplication::translate("window", "Oct", Q_NULLPTR)
+         << QApplication::translate("window", "Dec", Q_NULLPTR)
+         << QApplication::translate("window", "Hex", Q_NULLPTR)
+        );
         screenshotOptions->setTabText(screenshotOptions->indexOf(tabShootOptions), QApplication::translate("window", "Shoot Options", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        labelSavePath->setToolTip(QApplication::translate("window", "<html><head/><body><p>Determines where the screenshot will be saved. If no path is set the images folder of your OS will be determined. If no such folder exists your current working directory, i.e. the directory where this program resides will be the target directory.</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         labelSavePath->setText(QApplication::translate("window", "Set Save Path", Q_NULLPTR));
         buttonSavePath->setText(QApplication::translate("window", "...", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        labelFileNamePrefix->setToolTip(QApplication::translate("window", "<html><head/><body><p>A file name prefix. # stands for the current number of the screenshot. The other symbols stand for current time information, such as current year, month or day.</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         labelFileNamePrefix->setText(QApplication::translate("window", "File Name Prefix", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        labelFileNameSuffix->setToolTip(QApplication::translate("window", "<html><head/><body><p>Analogous to prefix.</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         labelFileNameSuffix->setText(QApplication::translate("window", "File Name Suffix", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        labelFileNameTrunk->setToolTip(QApplication::translate("window", "<html><head/><body><p>The middle part of the filename.</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         labelFileNameTrunk->setText(QApplication::translate("window", "File Name Trunk", Q_NULLPTR));
         dropdownPrefix->clear();
         dropdownPrefix->insertItems(0, QStringList()
@@ -475,6 +551,12 @@ public:
          << QApplication::translate("window", "_dd_mm_yy_hh_mm", Q_NULLPTR)
          << QApplication::translate("window", "_dd_mm_yy_hh_mm_#", Q_NULLPTR)
         );
+#ifndef QT_NO_TOOLTIP
+        labelFileNameDelimiter->setToolTip(QApplication::translate("window", "<html><head/><body><p>Determine the delimiting symbol (defaults to underscore). Look at &quot;File Name Prefix&quot; options to see what I mean.</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+#ifndef QT_NO_WHATSTHIS
+        labelFileNameDelimiter->setWhatsThis(QApplication::translate("window", "<html><head/><body><p>Determines the character to delimit prefix from trunk and trunk from suffix. Also used to delimit prefix sections and suffix sections.</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_WHATSTHIS
         labelFileNameDelimiter->setText(QApplication::translate("window", "File Name Delimiter", Q_NULLPTR));
         textFileNameDelimiter->setHtml(QApplication::translate("window", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -482,6 +564,9 @@ public:
 "</style></head><body style=\" font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">_</p></body></html>", Q_NULLPTR));
         textFileNameDelimiter->setPlaceholderText(QString());
+#ifndef QT_NO_TOOLTIP
+        labelFileFormat->setToolTip(QApplication::translate("window", "<html><head/><body><p>Determines the file format of the saved screenshot. Default is png, which can save the transparent color. Choose jpg for even smaller file sizes and less quality. Choose tiff or bmp for maximum quality at the cost of tremendous file size.</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         labelFileFormat->setText(QApplication::translate("window", "File Format", Q_NULLPTR));
         dropdownFileFormat->clear();
         dropdownFileFormat->insertItems(0, QStringList()
@@ -490,6 +575,9 @@ public:
          << QApplication::translate("window", "bmp", Q_NULLPTR)
          << QApplication::translate("window", "tiff", Q_NULLPTR)
         );
+#ifndef QT_NO_TOOLTIP
+        labelFilenumberOffset->setToolTip(QApplication::translate("window", "<html><head/><body><p>Start the # counter at &quot;# Offset&quot; instead of 0. Example: if you check periodic screenshot, but otherwise don't change the default settings and choose 10 here your first screenshot will be named untitled_11.png instead of untitled_1.png.</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         labelFilenumberOffset->setText(QApplication::translate("window", "# Offset", Q_NULLPTR));
         dropdownOverridePolicy->clear();
         dropdownOverridePolicy->insertItems(0, QStringList()
@@ -498,6 +586,9 @@ public:
          << QApplication::translate("window", "Override", Q_NULLPTR)
          << QApplication::translate("window", "Rename", Q_NULLPTR)
         );
+#ifndef QT_NO_TOOLTIP
+        labelOverridePolicy->setToolTip(QApplication::translate("window", "<html><head/><body><p>Choose what to do if a file with the name of your screenshot naming pattern exists in the target directory. </p><p>Ask: Ask user when conflict occurs.</p><p>Override: Always override old file.</p><p>Preserve: Never override old file and immediately halt all action.</p><p>Rename: Keep old and new file by renaming the new file.</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         labelOverridePolicy->setText(QApplication::translate("window", "Override Policy", Q_NULLPTR));
         screenshotOptions->setTabText(screenshotOptions->indexOf(tabSaveOptions), QApplication::translate("window", "Save Options", Q_NULLPTR));
         labelScreenshotPreview->setText(QString());

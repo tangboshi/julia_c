@@ -39,6 +39,9 @@
         <height>51</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Take a screenshot. Go ahead!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
       <property name="text">
        <string>Take Screenshot(s)</string>
       </property>
@@ -51,6 +54,9 @@
         <width>301</width>
         <height>51</height>
        </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cancel periodic screenshot plan. Only usable if &amp;quot;Hide This Window From Screenshot&amp;quot; in the next tab is UNchecked.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="text">
        <string>Stop Periodic Screenshot</string>
@@ -146,6 +152,9 @@ border-bottom-right-radius:5px;
         <height>91</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Not particularly useful, but you can change the transparency of this window if it tickles your fancy.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
       <property name="styleSheet">
        <string notr="true">padding-left: 10px;
 background: #ccc;
@@ -164,6 +173,9 @@ padding-bottom:30px;</string>
         <height>51</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Resets series count to 0.&lt;/p&gt;&lt;p&gt;Explanation: for each program session the screenshot numbering continues where it stopped when you last pressed &amp;quot;Take Screenshot(s)&amp;quot;. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
       <property name="text">
        <string>Reset Series Count</string>
       </property>
@@ -179,6 +191,9 @@ padding-bottom:30px;</string>
         <width>301</width>
         <height>51</height>
        </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Automatically reset series count to 0 after job is finished.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="styleSheet">
        <string notr="true">padding: 10px;
@@ -199,6 +214,9 @@ background: #ccc;</string>
         <width>301</width>
         <height>51</height>
        </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Don't play the screenshot sound upon taking the screenshot. Btw, the sound varies with the OS. For the interested: the sound is played by the QApplication::beep() call.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="styleSheet">
        <string notr="true">padding: 10px;
@@ -231,6 +249,9 @@ background: #ccc;</string>
         <height>51</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The interval in between each of the screenshots. Only takes effect if &amp;quot;Periodic Screenshot&amp;quot; is checked. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
       <property name="styleSheet">
        <string notr="true">padding-left: 10px;
 background: #ccc;</string>
@@ -247,6 +268,9 @@ background: #ccc;</string>
         <width>301</width>
         <height>51</height>
        </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Basically a choice between taking multiple screenshots (number specified in &amp;quot;Number of Screenshots&amp;quot;) or just a single shot.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="styleSheet">
        <string notr="true">padding: 10px;
@@ -287,6 +311,9 @@ background: #ccc;</string>
         <height>51</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The delay before the first screenshot is taken.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
       <property name="styleSheet">
        <string notr="true">padding-left: 10px;
 background: #ccc;</string>
@@ -326,6 +353,9 @@ background: #ccc;</string>
         <height>51</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Check to not have the screenshot tool's window interfere with your shooting.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
       <property name="styleSheet">
        <string notr="true">padding: 10px;
 background: #ccc;</string>
@@ -345,6 +375,9 @@ background: #ccc;</string>
         <width>301</width>
         <height>51</height>
        </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The number of screenshots you want to take.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="styleSheet">
        <string notr="true">padding-left: 10px;
@@ -386,11 +419,16 @@ background: #ccc;</string>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <item>
        <property name="text">
         <string>Entire Screen</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Active Window</string>
        </property>
       </item>
       <item>
@@ -417,6 +455,9 @@ background: #ccc;</string>
         <width>301</width>
         <height>51</height>
        </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The area you want to take a screenshot of.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="styleSheet">
        <string notr="true">padding-left: 10px;
@@ -455,6 +496,9 @@ p, li { white-space: pre-wrap; }
         <height>51</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Used to identify the window you want to take a screenshot of. For OS other than Linux please use the powershell (Windows) or Quartz (OSX) to find out the WId. Takes effect only if &amp;quot;Target Area&amp;quot; is set to window.&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
       <property name="styleSheet">
        <string notr="true">padding-left: 10px;
 background: #ccc;</string>
@@ -462,6 +506,59 @@ background: #ccc;</string>
       <property name="text">
        <string>Target Window Id</string>
       </property>
+     </widget>
+     <widget class="QLabel" name="labelTargetWindowIdBase">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>430</y>
+        <width>301</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The base which is used to calculate the WId from the &amp;quot;Target Window Id&amp;quot; text input. Only takes effect if &amp;quot;Target Area&amp;quot; is set to window.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">padding-left: 10px;
+background: #ccc;</string>
+      </property>
+      <property name="text">
+       <string>Target Window Id Base</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="dropdownTargetWindowIdBase">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>440</y>
+        <width>111</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="currentIndex">
+       <number>3</number>
+      </property>
+      <item>
+       <property name="text">
+        <string>Bin</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Oct</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Dec</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Hex</string>
+       </property>
+      </item>
      </widget>
      <zorder>labelTargetWindowId</zorder>
      <zorder>labelTargetArea</zorder>
@@ -475,6 +572,8 @@ background: #ccc;</string>
      <zorder>spinboxNumberScreenshots</zorder>
      <zorder>dropdownTargetArea</zorder>
      <zorder>textTargetWindowId</zorder>
+     <zorder>labelTargetWindowIdBase</zorder>
+     <zorder>dropdownTargetWindowIdBase</zorder>
     </widget>
     <widget class="QWidget" name="tabSaveOptions">
      <attribute name="title">
@@ -488,6 +587,9 @@ background: #ccc;</string>
         <width>301</width>
         <height>51</height>
        </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Determines where the screenshot will be saved. If no path is set the images folder of your OS will be determined. If no such folder exists your current working directory, i.e. the directory where this program resides will be the target directory.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="styleSheet">
        <string notr="true">padding-left: 10px;
@@ -519,6 +621,9 @@ background: #ccc;</string>
         <height>51</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A file name prefix. # stands for the current number of the screenshot. The other symbols stand for current time information, such as current year, month or day.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
       <property name="styleSheet">
        <string notr="true">padding-left: 10px;
 background: #ccc;</string>
@@ -536,6 +641,9 @@ background: #ccc;</string>
         <height>51</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Analogous to prefix.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
       <property name="styleSheet">
        <string notr="true">padding-left: 10px;
 background: #ccc;</string>
@@ -552,6 +660,9 @@ background: #ccc;</string>
         <width>301</width>
         <height>51</height>
        </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The middle part of the filename.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="styleSheet">
        <string notr="true">padding-left: 10px;
@@ -747,6 +858,12 @@ p, li { white-space: pre-wrap; }
         <height>51</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Determine the delimiting symbol (defaults to underscore). Look at &amp;quot;File Name Prefix&amp;quot; options to see what I mean.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="whatsThis">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Determines the character to delimit prefix from trunk and trunk from suffix. Also used to delimit prefix sections and suffix sections.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
       <property name="styleSheet">
        <string notr="true">padding-left: 10px;
 background: #ccc;</string>
@@ -783,6 +900,9 @@ p, li { white-space: pre-wrap; }
         <width>301</width>
         <height>51</height>
        </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Determines the file format of the saved screenshot. Default is png, which can save the transparent color. Choose jpg for even smaller file sizes and less quality. Choose tiff or bmp for maximum quality at the cost of tremendous file size.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="styleSheet">
        <string notr="true">padding-left: 10px;
@@ -830,6 +950,9 @@ background: #ccc;</string>
         <width>301</width>
         <height>51</height>
        </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Start the # counter at &amp;quot;# Offset&amp;quot; instead of 0. Example: if you check periodic screenshot, but otherwise don't change the default settings and choose 10 here your first screenshot will be named untitled_11.png instead of untitled_1.png.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="styleSheet">
        <string notr="true">padding-left: 10px;
@@ -902,6 +1025,9 @@ background: #ccc;</string>
         <width>301</width>
         <height>51</height>
        </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Choose what to do if a file with the name of your screenshot naming pattern exists in the target directory. &lt;/p&gt;&lt;p&gt;Ask: Ask user when conflict occurs.&lt;/p&gt;&lt;p&gt;Override: Always override old file.&lt;/p&gt;&lt;p&gt;Preserve: Never override old file and immediately halt all action.&lt;/p&gt;&lt;p&gt;Rename: Keep old and new file by renaming the new file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="styleSheet">
        <string notr="true">padding-left: 10px;
@@ -1012,7 +1138,7 @@ padding: 5px;</string>
   </action>
   <action name="actionSave">
    <property name="text">
-    <string>Save</string>
+    <string>&amp;Save</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
@@ -1020,7 +1146,7 @@ padding: 5px;</string>
   </action>
   <action name="actionTake">
    <property name="text">
-    <string>Take</string>
+    <string>&amp;Take</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+T</string>
