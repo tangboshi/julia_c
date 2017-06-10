@@ -50,6 +50,7 @@ public:
     QPushButton *buttonResetSeriesCount;
     QCheckBox *checkboxAutomaticallyResetSeriesCount;
     QCheckBox *checkboxMuteSound;
+    QPushButton *buttonClearScreenshotPreview;
     QWidget *tabShootOptions;
     QLabel *labelPeriod;
     QCheckBox *checkboxPeriodicScreenshot;
@@ -94,7 +95,7 @@ public:
     {
         if (window->objectName().isEmpty())
             window->setObjectName(QStringLiteral("window"));
-        window->resize(1138, 578);
+        window->resize(1138, 641);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -128,12 +129,12 @@ public:
         tabControls->setStyleSheet(QStringLiteral("color:#222;"));
         buttonTake = new QPushButton(tabControls);
         buttonTake->setObjectName(QStringLiteral("buttonTake"));
-        buttonTake->setGeometry(QRect(10, 110, 301, 51));
+        buttonTake->setGeometry(QRect(10, 100, 301, 51));
         buttonTake->setStyleSheet(QLatin1String("background:#ccc;\n"
 "padding:10px;"));
         buttonStop = new QPushButton(tabControls);
         buttonStop->setObjectName(QStringLiteral("buttonStop"));
-        buttonStop->setGeometry(QRect(10, 170, 301, 51));
+        buttonStop->setGeometry(QRect(10, 160, 301, 51));
         buttonStop->setStyleSheet(QLatin1String("background:#ccc;\n"
 "padding:10px;"));
         labelNextScreenshotIn = new QLabel(tabControls);
@@ -145,7 +146,9 @@ public:
 "padding:10px;\n"
 "qproperty-alignment:AlignCenter;\n"
 "border-top-left-radius:5px;\n"
-"border-top-right-radius:5px;"));
+"border-top-right-radius:5px;\n"
+"border-bottom-left-radius:0;\n"
+"border-bottom-right-radius:0;"));
         labelNextScreenshotInTime = new QLabel(tabControls);
         labelNextScreenshotInTime->setObjectName(QStringLiteral("labelNextScreenshotInTime"));
         labelNextScreenshotInTime->setGeometry(QRect(10, 50, 301, 41));
@@ -155,10 +158,12 @@ public:
 "qproperty-alignment: AlignCenter;\n"
 "border-bottom-left-radius:5px;\n"
 "border-bottom-right-radius:5px;\n"
+"border-top-left-radius:0;\n"
+"border-top-right-radius:0;\n"
 ""));
         sliderOpacity = new QSlider(tabControls);
         sliderOpacity->setObjectName(QStringLiteral("sliderOpacity"));
-        sliderOpacity->setGeometry(QRect(30, 440, 261, 21));
+        sliderOpacity->setGeometry(QRect(30, 450, 261, 21));
         sliderOpacity->setStyleSheet(QStringLiteral("background:#ccc;"));
         sliderOpacity->setMinimum(25);
         sliderOpacity->setMaximum(100);
@@ -170,26 +175,31 @@ public:
         sliderOpacity->setTickPosition(QSlider::TicksAbove);
         labelTransparency = new QLabel(tabControls);
         labelTransparency->setObjectName(QStringLiteral("labelTransparency"));
-        labelTransparency->setGeometry(QRect(10, 390, 301, 91));
+        labelTransparency->setGeometry(QRect(10, 400, 301, 91));
         labelTransparency->setStyleSheet(QLatin1String("padding-left: 10px;\n"
 "background: #ccc;\n"
 "padding-bottom:30px;"));
         buttonResetSeriesCount = new QPushButton(tabControls);
         buttonResetSeriesCount->setObjectName(QStringLiteral("buttonResetSeriesCount"));
-        buttonResetSeriesCount->setGeometry(QRect(10, 250, 301, 51));
+        buttonResetSeriesCount->setGeometry(QRect(10, 220, 301, 51));
         buttonResetSeriesCount->setStyleSheet(QLatin1String("background:#ccc;\n"
 "padding:10px;"));
         checkboxAutomaticallyResetSeriesCount = new QCheckBox(tabControls);
         checkboxAutomaticallyResetSeriesCount->setObjectName(QStringLiteral("checkboxAutomaticallyResetSeriesCount"));
-        checkboxAutomaticallyResetSeriesCount->setGeometry(QRect(10, 310, 301, 51));
+        checkboxAutomaticallyResetSeriesCount->setGeometry(QRect(10, 280, 301, 51));
         checkboxAutomaticallyResetSeriesCount->setStyleSheet(QLatin1String("padding: 10px;\n"
 "background: #ccc;"));
         checkboxAutomaticallyResetSeriesCount->setChecked(true);
         checkboxMuteSound = new QCheckBox(tabControls);
         checkboxMuteSound->setObjectName(QStringLiteral("checkboxMuteSound"));
-        checkboxMuteSound->setGeometry(QRect(10, 490, 301, 51));
+        checkboxMuteSound->setGeometry(QRect(10, 500, 301, 51));
         checkboxMuteSound->setStyleSheet(QLatin1String("padding: 10px;\n"
 "background: #ccc;"));
+        buttonClearScreenshotPreview = new QPushButton(tabControls);
+        buttonClearScreenshotPreview->setObjectName(QStringLiteral("buttonClearScreenshotPreview"));
+        buttonClearScreenshotPreview->setGeometry(QRect(10, 340, 301, 51));
+        buttonClearScreenshotPreview->setStyleSheet(QLatin1String("background:#ccc;\n"
+"padding:10px;"));
         screenshotOptions->addTab(tabControls, QString());
         labelTransparency->raise();
         buttonTake->raise();
@@ -200,6 +210,7 @@ public:
         buttonResetSeriesCount->raise();
         checkboxAutomaticallyResetSeriesCount->raise();
         checkboxMuteSound->raise();
+        buttonClearScreenshotPreview->raise();
         tabShootOptions = new QWidget();
         tabShootOptions->setObjectName(QStringLiteral("tabShootOptions"));
         tabShootOptions->setStyleSheet(QStringLiteral("color:#222;"));
@@ -261,6 +272,7 @@ public:
         textTargetWindowId = new QTextEdit(tabShootOptions);
         textTargetWindowId->setObjectName(QStringLiteral("textTargetWindowId"));
         textTargetWindowId->setGeometry(QRect(190, 380, 111, 31));
+        textTargetWindowId->setStyleSheet(QStringLiteral("overflow:hidden;"));
         labelTargetWindowId = new QLabel(tabShootOptions);
         labelTargetWindowId->setObjectName(QStringLiteral("labelTargetWindowId"));
         labelTargetWindowId->setGeometry(QRect(10, 370, 301, 51));
@@ -317,13 +329,13 @@ public:
 "background: #ccc;"));
         dropdownPrefix = new QComboBox(tabSaveOptions);
         dropdownPrefix->setObjectName(QStringLiteral("dropdownPrefix"));
-        dropdownPrefix->setGeometry(QRect(190, 80, 111, 28));
+        dropdownPrefix->setGeometry(QRect(150, 80, 151, 28));
         textFileNameTrunk = new QTextEdit(tabSaveOptions);
         textFileNameTrunk->setObjectName(QStringLiteral("textFileNameTrunk"));
         textFileNameTrunk->setGeometry(QRect(190, 140, 111, 31));
         dropdownSuffix = new QComboBox(tabSaveOptions);
         dropdownSuffix->setObjectName(QStringLiteral("dropdownSuffix"));
-        dropdownSuffix->setGeometry(QRect(190, 260, 111, 28));
+        dropdownSuffix->setGeometry(QRect(160, 260, 141, 28));
         labelFileNameDelimiter = new QLabel(tabSaveOptions);
         labelFileNameDelimiter->setObjectName(QStringLiteral("labelFileNameDelimiter"));
         labelFileNameDelimiter->setGeometry(QRect(10, 190, 301, 51));
@@ -396,6 +408,8 @@ public:
 "font-size:16px;\n"
 "border-top-left-radius:5px;\n"
 "border-top-right-radius:5px;\n"
+"border-bottom-left-radius:0;\n"
+"border-bottom-right-radius:0;\n"
 "padding: 5px;"));
 
         layoutScreenshotPreview->addWidget(label);
@@ -408,6 +422,8 @@ public:
 "border: 3px solid #000;\n"
 "border-bottom-left-radius:5px;\n"
 "border-bottom-right-radius:5px;\n"
+"border-top-left-radius:0;\n"
+"border-top-right-radius:0;\n"
 ""));
 
         layoutScreenshotPreview->addWidget(labelScreenshotPreview);
@@ -489,6 +505,13 @@ public:
         checkboxMuteSound->setToolTip(QApplication::translate("window", "<html><head/><body><p>Don't play the screenshot sound upon taking the screenshot. Btw, the sound varies with the OS. For the interested: the sound is played by the QApplication::beep() call.</p></body></html>", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
         checkboxMuteSound->setText(QApplication::translate("window", "Mute Sound", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        buttonClearScreenshotPreview->setToolTip(QApplication::translate("window", "<html><head/><body><p>Clears the screenshot preview.</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+        buttonClearScreenshotPreview->setText(QApplication::translate("window", "Clear Screenshot Preview", Q_NULLPTR));
+#ifndef QT_NO_SHORTCUT
+        buttonClearScreenshotPreview->setShortcut(QApplication::translate("window", "Ctrl+C", Q_NULLPTR));
+#endif // QT_NO_SHORTCUT
         screenshotOptions->setTabText(screenshotOptions->indexOf(tabControls), QApplication::translate("window", "Controls", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
         labelPeriod->setToolTip(QApplication::translate("window", "<html><head/><body><p>The interval in between each of the screenshots. Only takes effect if &quot;Periodic Screenshot&quot; is checked. </p></body></html>", Q_NULLPTR));

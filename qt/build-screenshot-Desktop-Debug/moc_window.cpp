@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_window_t {
-    QByteArrayData data[22];
-    char stringdata0[369];
+    QByteArrayData data[23];
+    char stringdata0[409];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -52,7 +52,8 @@ QT_MOC_LITERAL(17, 287, 23), // "setRectangleCoordinates"
 QT_MOC_LITERAL(18, 311, 5), // "start"
 QT_MOC_LITERAL(19, 317, 3), // "end"
 QT_MOC_LITERAL(20, 321, 23), // "on_actionTake_triggered"
-QT_MOC_LITERAL(21, 345, 23) // "on_actionSave_triggered"
+QT_MOC_LITERAL(21, 345, 23), // "on_actionSave_triggered"
+QT_MOC_LITERAL(22, 369, 39) // "on_buttonClearScreenshotPrevi..."
 
     },
     "window\0captureMode\0\0mode\0on_buttonTake_clicked\0"
@@ -64,7 +65,8 @@ QT_MOC_LITERAL(21, 345, 23) // "on_actionSave_triggered"
     "setSavepath\0updateNextScreenshotIn\0"
     "setupNextScreenshotInfo\0setRectangleCoordinates\0"
     "start\0end\0on_actionTake_triggered\0"
-    "on_actionSave_triggered"
+    "on_actionSave_triggered\0"
+    "on_buttonClearScreenshotPreview_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -74,7 +76,7 @@ static const uint qt_meta_data_window[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      16,   14, // methods
+      17,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -82,24 +84,25 @@ static const uint qt_meta_data_window[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   94,    2, 0x06 /* Public */,
+       1,    1,   99,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       4,    0,   97,    2, 0x08 /* Private */,
-       5,    0,   98,    2, 0x08 /* Private */,
-       6,    0,   99,    2, 0x08 /* Private */,
-       7,    0,  100,    2, 0x08 /* Private */,
-       8,    1,  101,    2, 0x08 /* Private */,
-      10,    0,  104,    2, 0x08 /* Private */,
-      11,    0,  105,    2, 0x08 /* Private */,
-      12,    0,  106,    2, 0x08 /* Private */,
-      13,    0,  107,    2, 0x08 /* Private */,
-      14,    0,  108,    2, 0x08 /* Private */,
-      15,    0,  109,    2, 0x08 /* Private */,
-      16,    0,  110,    2, 0x08 /* Private */,
-      17,    2,  111,    2, 0x08 /* Private */,
-      20,    0,  116,    2, 0x08 /* Private */,
-      21,    0,  117,    2, 0x08 /* Private */,
+       4,    0,  102,    2, 0x08 /* Private */,
+       5,    0,  103,    2, 0x08 /* Private */,
+       6,    0,  104,    2, 0x08 /* Private */,
+       7,    0,  105,    2, 0x08 /* Private */,
+       8,    1,  106,    2, 0x08 /* Private */,
+      10,    0,  109,    2, 0x08 /* Private */,
+      11,    0,  110,    2, 0x08 /* Private */,
+      12,    0,  111,    2, 0x08 /* Private */,
+      13,    0,  112,    2, 0x08 /* Private */,
+      14,    0,  113,    2, 0x08 /* Private */,
+      15,    0,  114,    2, 0x08 /* Private */,
+      16,    0,  115,    2, 0x08 /* Private */,
+      17,    2,  116,    2, 0x08 /* Private */,
+      20,    0,  121,    2, 0x08 /* Private */,
+      21,    0,  122,    2, 0x08 /* Private */,
+      22,    0,  123,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString,    3,
@@ -118,6 +121,7 @@ static const uint qt_meta_data_window[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::QPoint, QMetaType::QPoint,   18,   19,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -146,6 +150,7 @@ void window::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 13: _t->setRectangleCoordinates((*reinterpret_cast< QPoint(*)>(_a[1])),(*reinterpret_cast< QPoint(*)>(_a[2]))); break;
         case 14: _t->on_actionTake_triggered(); break;
         case 15: _t->on_actionSave_triggered(); break;
+        case 16: _t->on_buttonClearScreenshotPreview_clicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -186,13 +191,13 @@ int window::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 16)
+        if (_id < 17)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 16;
+        _id -= 17;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 16)
+        if (_id < 17)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 16;
+        _id -= 17;
     }
     return _id;
 }

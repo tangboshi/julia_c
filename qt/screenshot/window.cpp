@@ -4,6 +4,7 @@
 #include "fakeglass.h"
 
 const QPoint INVALID_POINT = QPoint(-1,-1);
+const QString NO_SCREENSHOT_SCHEDULED = "(no periodic screenshot scheduled)";
 
 QTimer* window::periodicScreenshotTimer = new QTimer;
 QTimer* window::nextScreenshotInfoTimer = new QTimer;
@@ -17,10 +18,12 @@ window::window(QWidget *parent) :
     rectanglePointB(INVALID_POINT)
 {
     ui->setupUi(this);
-    //setFixedSize(width(), height());
+    setFixedSize(width(), height());
 
     //qDebug() << QStyleFactory::keys();
     //qDebug() << QApplication::style()->metaObject()->className();
+
+    setStyleSheet("QLabel{border-radius:5px;}");
 
     connect(periodicScreenshotTimer, &QTimer::timeout, this, &window::takeScreenshot);
 
@@ -64,8 +67,8 @@ void window::resizeEvent(QResizeEvent * event)
     scaledSize.scale(ui->labelScreenshotPreview->size(), Qt::KeepAspectRatio);
 
     if (!ui->labelScreenshotPreview->pixmap() ||
-        (scaledSize.width() + 50 < ui->labelScreenshotPreview->pixmap()->size().width() &&
-         scaledSize.height() + 50 < ui->labelScreenshotPreview->pixmap()->size().height()))
+        (scaledSize.width() < ui->labelScreenshotPreview->pixmap()->size().width() &&
+         scaledSize.height() < ui->labelScreenshotPreview->pixmap()->size().height()))
     {
         updatePreview();
     }
@@ -93,7 +96,10 @@ void window::on_buttonTake_clicked()
         hide();
 
     // Wait for the window to hide
-    delay(1000);
+    if(!ui->checkboxPeriodicScreenshot->isChecked())
+    {
+        delay(1000);
+    }
 
     takeScreenshot();
 }
@@ -586,7 +592,7 @@ void window::updateNextScreenshotIn()
     if(periodicScreenshotTimer->remainingTime() > 0)
         ui->labelNextScreenshotInTime->setText(QString::number(periodicScreenshotTimer->remainingTime())+" ms");
     else
-        ui->labelNextScreenshotInTime->setText("-- no periodic screenshot scheduled --");
+        ui->labelNextScreenshotInTime->setText(NO_SCREENSHOT_SCHEDULED);
     if(!periodicScreenshotTimer->isActive())
         nextScreenshotInfoTimer->stop();
 }
@@ -631,4 +637,10 @@ void window::on_actionSave_triggered()
         msg.setText("The current Pixmap is empty. Please take a screenshot");
         msg.exec();
     }
+}
+
+void window::on_buttonClearScreenshotPreview_clicked()
+{
+    screenshot = *(new QPixmap);
+    updatePreview();
 }

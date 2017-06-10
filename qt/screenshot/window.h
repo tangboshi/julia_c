@@ -64,6 +64,8 @@ private slots:
 
     void on_actionSave_triggered();
 
+    void on_buttonClearScreenshotPreview_clicked();
+
 private:
     Ui::window*            ui;
     QPixmap                screenshot;

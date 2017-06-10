@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1138</width>
-    <height>578</height>
+    <height>641</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -56,7 +56,7 @@ background:#bbb;</string>
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>110</y>
+          <y>100</y>
           <width>301</width>
           <height>51</height>
          </rect>
@@ -76,7 +76,7 @@ padding:10px;</string>
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>170</y>
+          <y>160</y>
           <width>301</width>
           <height>51</height>
          </rect>
@@ -111,7 +111,9 @@ font-size:24px;
 padding:10px;
 qproperty-alignment:AlignCenter;
 border-top-left-radius:5px;
-border-top-right-radius:5px;</string>
+border-top-right-radius:5px;
+border-bottom-left-radius:0;
+border-bottom-right-radius:0;</string>
         </property>
         <property name="text">
          <string>Next Screenshot in</string>
@@ -133,6 +135,8 @@ font-size:16px;
 qproperty-alignment: AlignCenter;
 border-bottom-left-radius:5px;
 border-bottom-right-radius:5px;
+border-top-left-radius:0;
+border-top-right-radius:0;
 </string>
         </property>
         <property name="text">
@@ -143,7 +147,7 @@ border-bottom-right-radius:5px;
         <property name="geometry">
          <rect>
           <x>30</x>
-          <y>440</y>
+          <y>450</y>
           <width>261</width>
           <height>21</height>
          </rect>
@@ -180,7 +184,7 @@ border-bottom-right-radius:5px;
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>390</y>
+          <y>400</y>
           <width>301</width>
           <height>91</height>
          </rect>
@@ -201,7 +205,7 @@ padding-bottom:30px;</string>
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>250</y>
+          <y>220</y>
           <width>301</width>
           <height>51</height>
          </rect>
@@ -224,7 +228,7 @@ padding:10px;</string>
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>310</y>
+          <y>280</y>
           <width>301</width>
           <height>51</height>
          </rect>
@@ -247,7 +251,7 @@ background: #ccc;</string>
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>490</y>
+          <y>500</y>
           <width>301</width>
           <height>51</height>
          </rect>
@@ -263,6 +267,29 @@ background: #ccc;</string>
          <string>Mute Sound</string>
         </property>
        </widget>
+       <widget class="QPushButton" name="buttonClearScreenshotPreview">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>340</y>
+          <width>301</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Clears the screenshot preview.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background:#ccc;
+padding:10px;</string>
+        </property>
+        <property name="text">
+         <string>Clear Screenshot Preview</string>
+        </property>
+        <property name="shortcut">
+         <string>Ctrl+C</string>
+        </property>
+       </widget>
        <zorder>labelTransparency</zorder>
        <zorder>buttonTake</zorder>
        <zorder>buttonStop</zorder>
@@ -274,6 +301,7 @@ background: #ccc;</string>
        <zorder>checkboxMuteSound</zorder>
        <zorder>labelScreenshotPreview</zorder>
        <zorder>label</zorder>
+       <zorder>buttonClearScreenshotPreview</zorder>
       </widget>
       <widget class="QWidget" name="tabShootOptions">
        <property name="styleSheet">
@@ -518,6 +546,9 @@ background: #ccc;</string>
           <height>31</height>
          </rect>
         </property>
+        <property name="styleSheet">
+         <string notr="true">overflow:hidden;</string>
+        </property>
         <property name="html">
          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -722,9 +753,9 @@ background: #ccc;</string>
        <widget class="QComboBox" name="dropdownPrefix">
         <property name="geometry">
          <rect>
-          <x>190</x>
+          <x>150</x>
           <y>80</y>
-          <width>111</width>
+          <width>151</width>
           <height>28</height>
          </rect>
         </property>
@@ -819,9 +850,9 @@ p, li { white-space: pre-wrap; }
        <widget class="QComboBox" name="dropdownSuffix">
         <property name="geometry">
          <rect>
-          <x>190</x>
+          <x>160</x>
           <y>260</y>
-          <width>111</width>
+          <width>141</width>
           <height>28</height>
          </rect>
         </property>
@@ -1123,6 +1154,8 @@ color: #ccc;
 font-size:16px;
 border-top-left-radius:5px;
 border-top-right-radius:5px;
+border-bottom-left-radius:0;
+border-bottom-right-radius:0;
 padding: 5px;</string>
         </property>
         <property name="text">
@@ -1139,6 +1172,8 @@ qproperty-alignment: AlignCenter;
 border: 3px solid #000;
 border-bottom-left-radius:5px;
 border-bottom-right-radius:5px;
+border-top-left-radius:0;
+border-top-right-radius:0;
 </string>
         </property>
         <property name="text">
