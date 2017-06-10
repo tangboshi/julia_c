@@ -26,6 +26,12 @@ fakeglass *fakeglass::getFakeglass()
     return singleton;
 }
 
+void fakeglass::showFakeglass(QString mode)
+{
+    captureMode = mode;
+    showFullScreen();
+}
+
 
 void fakeglass::mousePressEvent(QMouseEvent *event)
 {
@@ -53,3 +59,10 @@ void fakeglass::mouseReleaseEvent(QMouseEvent *event)
     endpoint = event->pos();
     emit rectangleSelected(origin, endpoint);
 }
+
+/*
+void fakeglass::hideEvent(QHideEvent *event)
+{
+    emit fakeglassHidden();
+}
+*/

@@ -942,7 +942,8 @@ window.o: ../screenshot/window.cpp ../screenshot/window.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o window.o ../screenshot/window.cpp
 
 fakeglass.o: ../screenshot/fakeglass.cpp ../screenshot/fakeglass.h \
-		ui_fakeglass.h
+		ui_fakeglass.h \
+		../screenshot/window.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o fakeglass.o ../screenshot/fakeglass.cpp
 
 moc_window.o: moc_window.cpp 

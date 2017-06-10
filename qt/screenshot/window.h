@@ -19,6 +19,8 @@
 #include <QFileInfo>
 #include <QPushButton>
 #include <QEventLoop>
+#include <QtMath>
+#include <QProcess>
 
 class fakeglass;
 
@@ -37,6 +39,9 @@ public:
 protected:
     void resizeEvent(QResizeEvent *event) override;
 
+signals:
+    void captureMode(QString mode);
+
 private slots:
     void on_buttonTake_clicked();
     void on_buttonStop_clicked();
@@ -54,6 +59,10 @@ private slots:
 
     // Dependent on fakeglass
     void setRectangleCoordinates(QPoint start, QPoint end);
+
+    void on_actionTake_triggered();
+
+    void on_actionSave_triggered();
 
 private:
     Ui::window*            ui;

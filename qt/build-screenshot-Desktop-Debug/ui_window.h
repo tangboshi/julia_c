@@ -33,6 +33,8 @@ class Ui_window
 {
 public:
     QAction *actionAbout;
+    QAction *actionSave;
+    QAction *actionTake;
     QWidget *centralWidget;
     QTabWidget *screenshotOptions;
     QWidget *tabControls;
@@ -56,6 +58,8 @@ public:
     QSpinBox *spinboxNumberScreenshots;
     QComboBox *dropdownTargetArea;
     QLabel *labelTargetArea;
+    QTextEdit *textTargetWindowId;
+    QLabel *labelTargetWindowId;
     QWidget *tabSaveOptions;
     QLabel *labelSavePath;
     QPushButton *buttonSavePath;
@@ -73,11 +77,12 @@ public:
     QSpinBox *spinboxFilenumberOffset;
     QComboBox *dropdownOverridePolicy;
     QLabel *labelOverridePolicy;
-    QWidget *tabUnimplemented;
     QLabel *labelScreenshotPreview;
     QLabel *label;
     QMenuBar *menuBar;
     QMenu *menuAbout;
+    QMenu *menuFile;
+    QMenu *menuScreenshot;
 
     void setupUi(QMainWindow *window)
     {
@@ -86,6 +91,10 @@ public:
         window->resize(1138, 638);
         actionAbout = new QAction(window);
         actionAbout->setObjectName(QStringLiteral("actionAbout"));
+        actionSave = new QAction(window);
+        actionSave->setObjectName(QStringLiteral("actionSave"));
+        actionTake = new QAction(window);
+        actionTake->setObjectName(QStringLiteral("actionTake"));
         centralWidget = new QWidget(window);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         screenshotOptions = new QTabWidget(centralWidget);
@@ -172,6 +181,7 @@ public:
         checkboxPeriodicScreenshot->setGeometry(QRect(10, 70, 301, 51));
         checkboxPeriodicScreenshot->setStyleSheet(QLatin1String("padding: 10px;\n"
 "background: #ccc;"));
+        checkboxPeriodicScreenshot->setChecked(true);
         spinboxPeriod = new QSpinBox(tabShootOptions);
         spinboxPeriod->setObjectName(QStringLiteral("spinboxPeriod"));
         spinboxPeriod->setGeometry(QRect(190, 140, 111, 31));
@@ -207,7 +217,7 @@ public:
         spinboxNumberScreenshots->setMinimum(2);
         spinboxNumberScreenshots->setMaximum(100000);
         spinboxNumberScreenshots->setSingleStep(1);
-        spinboxNumberScreenshots->setValue(50);
+        spinboxNumberScreenshots->setValue(5);
         dropdownTargetArea = new QComboBox(tabShootOptions);
         dropdownTargetArea->setObjectName(QStringLiteral("dropdownTargetArea"));
         dropdownTargetArea->setGeometry(QRect(190, 320, 111, 28));
@@ -216,7 +226,16 @@ public:
         labelTargetArea->setGeometry(QRect(10, 310, 301, 51));
         labelTargetArea->setStyleSheet(QLatin1String("padding-left: 10px;\n"
 "background: #ccc;"));
+        textTargetWindowId = new QTextEdit(tabShootOptions);
+        textTargetWindowId->setObjectName(QStringLiteral("textTargetWindowId"));
+        textTargetWindowId->setGeometry(QRect(190, 380, 111, 31));
+        labelTargetWindowId = new QLabel(tabShootOptions);
+        labelTargetWindowId->setObjectName(QStringLiteral("labelTargetWindowId"));
+        labelTargetWindowId->setGeometry(QRect(10, 370, 301, 51));
+        labelTargetWindowId->setStyleSheet(QLatin1String("padding-left: 10px;\n"
+"background: #ccc;"));
         screenshotOptions->addTab(tabShootOptions, QString());
+        labelTargetWindowId->raise();
         labelTargetArea->raise();
         labelPeriod->raise();
         checkboxPeriodicScreenshot->raise();
@@ -227,6 +246,7 @@ public:
         labelNumberScreenshots->raise();
         spinboxNumberScreenshots->raise();
         dropdownTargetArea->raise();
+        textTargetWindowId->raise();
         tabSaveOptions = new QWidget();
         tabSaveOptions->setObjectName(QStringLiteral("tabSaveOptions"));
         labelSavePath = new QLabel(tabSaveOptions);
@@ -314,11 +334,6 @@ public:
         labelFilenumberOffset->raise();
         spinboxFilenumberOffset->raise();
         dropdownOverridePolicy->raise();
-        tabUnimplemented = new QWidget();
-        tabUnimplemented->setObjectName(QStringLiteral("tabUnimplemented"));
-        tabUnimplemented->setMouseTracking(false);
-        tabUnimplemented->setAutoFillBackground(false);
-        screenshotOptions->addTab(tabUnimplemented, QString());
         labelScreenshotPreview = new QLabel(centralWidget);
         labelScreenshotPreview->setObjectName(QStringLiteral("labelScreenshotPreview"));
         labelScreenshotPreview->setGeometry(QRect(340, 40, 791, 561));
@@ -345,15 +360,24 @@ public:
         menuBar->setGeometry(QRect(0, 0, 1138, 25));
         menuAbout = new QMenu(menuBar);
         menuAbout->setObjectName(QStringLiteral("menuAbout"));
+        menuFile = new QMenu(menuBar);
+        menuFile->setObjectName(QStringLiteral("menuFile"));
+        menuScreenshot = new QMenu(menuBar);
+        menuScreenshot->setObjectName(QStringLiteral("menuScreenshot"));
         window->setMenuBar(menuBar);
 
+        menuBar->addAction(menuFile->menuAction());
+        menuBar->addAction(menuScreenshot->menuAction());
         menuBar->addAction(menuAbout->menuAction());
         menuAbout->addAction(actionAbout);
+        menuFile->addAction(actionSave);
+        menuScreenshot->addAction(actionTake);
 
         retranslateUi(window);
 
         screenshotOptions->setCurrentIndex(2);
         dropdownTargetArea->setCurrentIndex(2);
+        dropdownOverridePolicy->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(window);
@@ -363,7 +387,15 @@ public:
     {
         window->setWindowTitle(QApplication::translate("window", "Simple Screenshot Tool", Q_NULLPTR));
         actionAbout->setText(QApplication::translate("window", "&About", Q_NULLPTR));
-        buttonTake->setText(QApplication::translate("window", "Take Screenshot", Q_NULLPTR));
+        actionSave->setText(QApplication::translate("window", "Save", Q_NULLPTR));
+#ifndef QT_NO_SHORTCUT
+        actionSave->setShortcut(QApplication::translate("window", "Ctrl+S", Q_NULLPTR));
+#endif // QT_NO_SHORTCUT
+        actionTake->setText(QApplication::translate("window", "Take", Q_NULLPTR));
+#ifndef QT_NO_SHORTCUT
+        actionTake->setShortcut(QApplication::translate("window", "Ctrl+T", Q_NULLPTR));
+#endif // QT_NO_SHORTCUT
+        buttonTake->setText(QApplication::translate("window", "Take Screenshot(s)", Q_NULLPTR));
         buttonStop->setText(QApplication::translate("window", "Stop Periodic Screenshot", Q_NULLPTR));
 #ifndef QT_NO_SHORTCUT
         buttonStop->setShortcut(QApplication::translate("window", "Ctrl+C", Q_NULLPTR));
@@ -391,6 +423,13 @@ public:
          << QApplication::translate("window", "Polygon", Q_NULLPTR)
         );
         labelTargetArea->setText(QApplication::translate("window", "Target Area", Q_NULLPTR));
+        textTargetWindowId->setHtml(QApplication::translate("window", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", Q_NULLPTR));
+        textTargetWindowId->setPlaceholderText(QString());
+        labelTargetWindowId->setText(QApplication::translate("window", "Target Window Id", Q_NULLPTR));
         screenshotOptions->setTabText(screenshotOptions->indexOf(tabShootOptions), QApplication::translate("window", "Shoot Options", Q_NULLPTR));
         labelSavePath->setText(QApplication::translate("window", "Set Save Path", Q_NULLPTR));
         buttonSavePath->setText(QApplication::translate("window", "...", Q_NULLPTR));
@@ -461,10 +500,11 @@ public:
         );
         labelOverridePolicy->setText(QApplication::translate("window", "Override Policy", Q_NULLPTR));
         screenshotOptions->setTabText(screenshotOptions->indexOf(tabSaveOptions), QApplication::translate("window", "Save Options", Q_NULLPTR));
-        screenshotOptions->setTabText(screenshotOptions->indexOf(tabUnimplemented), QApplication::translate("window", "u", Q_NULLPTR));
         labelScreenshotPreview->setText(QString());
         label->setText(QApplication::translate("window", "Screenshot Preview", Q_NULLPTR));
         menuAbout->setTitle(QApplication::translate("window", "?", Q_NULLPTR));
+        menuFile->setTitle(QApplication::translate("window", "Fi&le", Q_NULLPTR));
+        menuScreenshot->setTitle(QApplication::translate("window", "Sc&reenshot", Q_NULLPTR));
     } // retranslateUi
 
 };

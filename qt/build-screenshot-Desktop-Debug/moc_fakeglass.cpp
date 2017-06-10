@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_fakeglass_t {
-    QByteArrayData data[7];
-    char stringdata0[63];
+    QByteArrayData data[9];
+    char stringdata0[82];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -37,11 +37,14 @@ QT_MOC_LITERAL(2, 28, 0), // ""
 QT_MOC_LITERAL(3, 29, 5), // "start"
 QT_MOC_LITERAL(4, 35, 3), // "end"
 QT_MOC_LITERAL(5, 39, 12), // "getFakeglass"
-QT_MOC_LITERAL(6, 52, 10) // "fakeglass*"
+QT_MOC_LITERAL(6, 52, 10), // "fakeglass*"
+QT_MOC_LITERAL(7, 63, 13), // "showFakeglass"
+QT_MOC_LITERAL(8, 77, 4) // "mode"
 
     },
     "fakeglass\0rectangleSelected\0\0start\0"
-    "end\0getFakeglass\0fakeglass*"
+    "end\0getFakeglass\0fakeglass*\0showFakeglass\0"
+    "mode"
 };
 #undef QT_MOC_LITERAL
 
@@ -51,7 +54,7 @@ static const uint qt_meta_data_fakeglass[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -59,16 +62,18 @@ static const uint qt_meta_data_fakeglass[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    2,   24,    2, 0x06 /* Public */,
+       1,    2,   29,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       5,    0,   29,    2, 0x0a /* Public */,
+       5,    0,   34,    2, 0x0a /* Public */,
+       7,    1,   35,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QPoint, QMetaType::QPoint,    3,    4,
 
  // slots: parameters
     0x80000000 | 6,
+    QMetaType::Void, QMetaType::QString,    8,
 
        0        // eod
 };
@@ -82,6 +87,7 @@ void fakeglass::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         case 0: _t->rectangleSelected((*reinterpret_cast< QPoint(*)>(_a[1])),(*reinterpret_cast< QPoint(*)>(_a[2]))); break;
         case 1: { fakeglass* _r = _t->getFakeglass();
             if (_a[0]) *reinterpret_cast< fakeglass**>(_a[0]) = std::move(_r); }  break;
+        case 2: _t->showFakeglass((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -122,13 +128,13 @@ int fakeglass::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 3;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 3)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 2;
+        _id -= 3;
     }
     return _id;
 }
