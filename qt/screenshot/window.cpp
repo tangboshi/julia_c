@@ -23,7 +23,7 @@ window::window(QWidget *parent) :
     //qDebug() << QStyleFactory::keys();
     //qDebug() << QApplication::style()->metaObject()->className();
 
-    setStyleSheet("QLabel{border-radius:5px;}");
+    setStyleSheet("QLabel,QCheckBox{border-radius:5px;}");
 
     connect(periodicScreenshotTimer, &QTimer::timeout, this, &window::takeScreenshot);
 
